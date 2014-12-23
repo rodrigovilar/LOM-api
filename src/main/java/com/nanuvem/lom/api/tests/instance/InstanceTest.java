@@ -3,17 +3,12 @@ package com.nanuvem.lom.api.tests.instance;
 import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.createOneAttribute;
 import static com.nanuvem.lom.api.tests.entity.EntityHelper.createEntity;
 import static com.nanuvem.lom.api.tests.instance.InstanceHelper.createAndVerifyOneInstance;
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.createOneInstance;
 import static com.nanuvem.lom.api.tests.instance.InstanceHelper.expectExceptionOnCreateInvalidInstance;
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.updateAndVerifyValues;
+import static com.nanuvem.lom.api.tests.instance.InstanceHelper.updateOneValueOfInstanceAndVerifyOneException;
 
 import org.junit.Test;
 
-import com.nanuvem.lom.api.Attribute;
 import com.nanuvem.lom.api.AttributeType;
-import com.nanuvem.lom.api.AttributeValue;
-import com.nanuvem.lom.api.Entity;
-import com.nanuvem.lom.api.Instance;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
 public abstract class InstanceTest extends LomTestCase {
@@ -89,39 +84,76 @@ public abstract class InstanceTest extends LomTestCase {
 
 	@Test
 	public void updateValueOfTheAttributeValueForOtherValidValues() {
-		createEntity("abc", "a");
-
-		Attribute attribute1 = createOneAttribute("abc.a", null, "email",
+		updateOneValueOfInstanceAndVerifyOneException(
+				"abc",
+				"a",
+				"email",
 				AttributeType.TEXT,
-				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}");
-		Instance instance1 = InstanceHelper.createOneInstance(
-				attribute1.getEntity(), "abc@abc.com");
-		AttributeValue value1 = instance1.getValues().get(0);
-		value1.setValue("cba@cba.com");
-		updateAndVerifyValues(instance1, value1);
+				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
+				"abc@abc.com", "cba@cba.com", null);
 
-		Attribute attribute2 = createOneAttribute("abc.a", null, "description",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "b",
+				"descryption", AttributeType.LONGTEXT,
+				"{\"default\": \"Nothing to say\", \"maxlength\": 100}",
+				"Here must contain a description, written by a long text",
+				"It's a personal like that codes", null);
+
+		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "counter",
+				AttributeType.INTEGER, "{\"default\": \"0\", \"minvalue\": 0}",
+				"1", "3", null);
+
+		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "secretKey",
+				AttributeType.PASSWORD, "{\"default\": \"password\"}",
+				"5f6eca57fc12718a639e3433bb02a7c5",
+				"9e107d9d372bb6826bd81d3542a419d6", null);
+	}
+
+	@Test
+	public void updateValueOfTheAttributeValueForInvalidValues() {
+		updateOneValueOfInstanceAndVerifyOneException(
+				"abc",
+				"a",
+				"email",
+				AttributeType.TEXT,
+				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
+				"abc@abc.com",
+				"someone@nanuvem.com",
+				"Invalid value for the Instance. The value for the 'email' attribute does not meet the defined regular expression");
+
+		updateOneValueOfInstanceAndVerifyOneException(
+				"abc",
+				"b",
+				"descryption",
 				AttributeType.LONGTEXT,
-				"{\"default\": \"Nothing to say\", \"maxlength\": 100}");
-		Instance instance2 = createOneInstance(attribute2.getEntity(),
-				"Here must contain a description, written by a long text");
-		AttributeValue value2 = instance2.getValues().get(0);
-		value2.setValue("It's a personal like that codes");
-		updateAndVerifyValues(instance2, value2);
+				"{\"default\": \"Nothing to say\", \"maxlength\": 100}",
+				"Here must contain a description, written by a long text",
+				"Seja bem Vindo! Sou professor do Departamento de Ciências Exatas do CCAE/UFPB e "
+						+ "leciono disciplinas nos cursos de Licenciatura em Ciência da Computação e Sistemas de Informação. "
+						+ "Já ensinei as seguintes disciplinas: Análise e Projeto de Sistemas; Desenvolvimento de Sistemas Corporativos; "
+						+ "Programação Orientada a Objetos; Linguagem de Programação; Introdução à Programação; "
+						+ "Banco de Dados; Tenho graduação e mestrado em Ciência da Computação pela Universidade Federal de Campina Grande. "
+						+ "Meus interesses de pesquisa são Sistemas adaptativos, "
+						+ "Frameworks e Meta modelagem.",
+				"Invalid value for the Instance. The value for 'description' must have a maximum length of 100 characters");
 
-		Attribute attribute3 = createOneAttribute("abc.a", null, "counter",
-				AttributeType.INTEGER, "{\"default\": \"0\", \"minvalue\": 0}");
-		Instance instance3 = createOneInstance(attribute3.getEntity(), "1");
-		AttributeValue value3 = instance3.getValues().get(0);
-		value3.setValue("3");
-		updateAndVerifyValues(instance3, value3);
+		updateOneValueOfInstanceAndVerifyOneException(
+				"abc",
+				"c",
+				"counter",
+				AttributeType.INTEGER,
+				"{\"default\": \"0\", \"minvalue\": 0}",
+				"1",
+				"-3",
+				"Invalid value for the Instance. The value for 'counter' must be greater or equal to 0");
 
-		Attribute attribute4 = createOneAttribute("abc.a", null, "secretKey",
-				AttributeType.PASSWORD, "{\"default\": \"password\"}");
-		Instance instance4 = createOneInstance(attribute4.getEntity(),
-				"5f6eca57fc12718a639e3433bb02a7c5");
-		AttributeValue value4 = instance4.getValues().get(0);
-		value4.setValue("9e107d9d372bb6826bd81d3542a419d6");
-		updateAndVerifyValues(instance4, value4);
+		updateOneValueOfInstanceAndVerifyOneException(
+				"abc",
+				"d",
+				"secretKey",
+				AttributeType.PASSWORD,
+				"{\"default\": \"password\", \"maxlength\": 32}",
+				"5f6eca57fc12718a639e3433bb02a7c5",
+				"9e107d9d372bb6826bd81d3542a419d6",
+				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters");
 	}
 }

@@ -1,5 +1,7 @@
 package com.nanuvem.lom.api.tests.instance;
 
+import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.createOneAttribute;
+import static com.nanuvem.lom.api.tests.entity.EntityHelper.createEntity;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -195,6 +197,30 @@ public class InstanceHelper {
 			}
 		} catch (MetadataException e) {
 			fail();
+		}
+	}
+
+	static void updateOneValueOfInstanceAndVerifyOneException(
+			String namespaceEntity, String nameEntity, String attributeName,
+			AttributeType type, String configuration, String valueOfCreate,
+			String valueOfUpdate, String expectedExceptionMessage) {
+
+		try {
+			createEntity(namespaceEntity, nameEntity);
+			Attribute attribute = createOneAttribute(namespaceEntity + "."
+					+ nameEntity, null, attributeName, type, configuration);
+			Instance instance = InstanceHelper.createOneInstance(
+					attribute.getEntity(), valueOfCreate);
+			AttributeValue value = instance.getValues().get(0);
+			value.setValue(valueOfUpdate);
+			updateAndVerifyValues(instance, value);
+
+		} catch (MetadataException e) {
+			if (expectedExceptionMessage != null) {
+				Assert.assertEquals(expectedExceptionMessage, e.getMessage());
+			} else {
+				Assert.fail();
+			}
 		}
 	}
 }
