@@ -85,12 +85,6 @@ public abstract class InstanceTest extends LomTestCase {
 	@Test
 	public void updateValueOfTheAttributeValueForOtherValidValues() {
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "b",
-				"descryption", AttributeType.LONGTEXT,
-				"{\"default\": \"Nothing to say\", \"maxlength\": 100}",
-				"Here must contain a description, written by a long text",
-				"It's a personal like that codes", null);
-
 		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "counter",
 				AttributeType.INTEGER, "{\"default\": \"0\", \"minvalue\": 0}",
 				"1", "3", null);
@@ -104,21 +98,21 @@ public abstract class InstanceTest extends LomTestCase {
 	@Test
 	public void updateValueOfTheAttributeValueForInvalidValues() {
 
-		updateOneValueOfInstanceAndVerifyOneException(
-				"abc",
-				"b",
-				"descryption",
-				AttributeType.LONGTEXT,
-				"{\"default\": \"Nothing to say\", \"maxlength\": 100}",
-				"Here must contain a description, written by a long text",
-				"Seja bem Vindo! Sou professor do Departamento de Ciências Exatas do CCAE/UFPB e "
-						+ "leciono disciplinas nos cursos de Licenciatura em Ciência da Computação e Sistemas de Informação. "
-						+ "Já ensinei as seguintes disciplinas: Análise e Projeto de Sistemas; Desenvolvimento de Sistemas Corporativos; "
-						+ "Programação Orientada a Objetos; Linguagem de Programação; Introdução à Programação; "
-						+ "Banco de Dados; Tenho graduação e mestrado em Ciência da Computação pela Universidade Federal de Campina Grande. "
-						+ "Meus interesses de pesquisa são Sistemas adaptativos, "
-						+ "Frameworks e Meta modelagem.",
-				"Invalid value for the Instance. The value for 'description' must have a maximum length of 100 characters");
+//		updateOneValueOfInstanceAndVerifyOneException(
+//				"abc",
+//				"b",
+//				"descryption",
+//				AttributeType.LONGTEXT,
+//				"{\"default\": \"Nothing to say\", \"maxlength\": 100}",
+//				"Here must contain a description, written by a long text",
+//				"Seja bem Vindo! Sou professor do Departamento de Ciências Exatas do CCAE/UFPB e "
+//						+ "leciono disciplinas nos cursos de Licenciatura em Ciência da Computação e Sistemas de Informação. "
+//						+ "Já ensinei as seguintes disciplinas: Análise e Projeto de Sistemas; Desenvolvimento de Sistemas Corporativos; "
+//						+ "Programação Orientada a Objetos; Linguagem de Programação; Introdução à Programação; "
+//						+ "Banco de Dados; Tenho graduação e mestrado em Ciência da Computação pela Universidade Federal de Campina Grande. "
+//						+ "Meus interesses de pesquisa são Sistemas adaptativos, "
+//						+ "Frameworks e Meta modelagem.",
+//				"Invalid value for the Instance. The value for 'description' must have a maximum length of 100 characters");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
