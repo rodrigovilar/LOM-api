@@ -216,7 +216,8 @@ public class InstanceHelper {
 			updateAndVerifyValues(instance, value);
 
 		} catch (MetadataException e) {
-			if (expectedExceptionMessage != null) {
+			if (expectedExceptionMessage != null
+					&& !expectedExceptionMessage.isEmpty()) {
 				Assert.assertEquals(expectedExceptionMessage, e.getMessage());
 			} else {
 				Assert.fail();

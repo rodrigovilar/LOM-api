@@ -84,13 +84,6 @@ public abstract class InstanceTest extends LomTestCase {
 
 	@Test
 	public void updateValueOfTheAttributeValueForOtherValidValues() {
-		updateOneValueOfInstanceAndVerifyOneException(
-				"abc",
-				"a",
-				"email",
-				AttributeType.TEXT,
-				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
-				"abc@abc.com", "cba@cba.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "b",
 				"descryption", AttributeType.LONGTEXT,
@@ -110,15 +103,6 @@ public abstract class InstanceTest extends LomTestCase {
 
 	@Test
 	public void updateValueOfTheAttributeValueForInvalidValues() {
-		updateOneValueOfInstanceAndVerifyOneException(
-				"abc",
-				"a",
-				"email",
-				AttributeType.TEXT,
-				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
-				"abc@abc.com",
-				"someone@nanuvem.com",
-				"Invalid value for the Instance. The value for the 'email' attribute does not meet the defined regular expression");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
