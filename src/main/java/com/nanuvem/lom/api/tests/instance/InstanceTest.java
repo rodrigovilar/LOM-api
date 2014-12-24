@@ -85,10 +85,6 @@ public abstract class InstanceTest extends LomTestCase {
 	@Test
 	public void updateValueOfTheAttributeValueForOtherValidValues() {
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "counter",
-				AttributeType.INTEGER, "{\"default\": \"0\", \"minvalue\": 0}",
-				"1", "3", null);
-
 		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "secretKey",
 				AttributeType.PASSWORD, "{\"default\": \"password\"}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
@@ -97,22 +93,6 @@ public abstract class InstanceTest extends LomTestCase {
 
 	@Test
 	public void updateValueOfTheAttributeValueForInvalidValues() {
-
-//		updateOneValueOfInstanceAndVerifyOneException(
-//				"abc",
-//				"b",
-//				"descryption",
-//				AttributeType.LONGTEXT,
-//				"{\"default\": \"Nothing to say\", \"maxlength\": 100}",
-//				"Here must contain a description, written by a long text",
-//				"Seja bem Vindo! Sou professor do Departamento de Ciências Exatas do CCAE/UFPB e "
-//						+ "leciono disciplinas nos cursos de Licenciatura em Ciência da Computação e Sistemas de Informação. "
-//						+ "Já ensinei as seguintes disciplinas: Análise e Projeto de Sistemas; Desenvolvimento de Sistemas Corporativos; "
-//						+ "Programação Orientada a Objetos; Linguagem de Programação; Introdução à Programação; "
-//						+ "Banco de Dados; Tenho graduação e mestrado em Ciência da Computação pela Universidade Federal de Campina Grande. "
-//						+ "Meus interesses de pesquisa são Sistemas adaptativos, "
-//						+ "Frameworks e Meta modelagem.",
-//				"Invalid value for the Instance. The value for 'description' must have a maximum length of 100 characters");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -131,7 +111,7 @@ public abstract class InstanceTest extends LomTestCase {
 				AttributeType.PASSWORD,
 				"{\"default\": \"password\", \"maxlength\": 32}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
-				"9e107d9d372bb6826bd81d3542a419d6",
+				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters");
 	}
 }

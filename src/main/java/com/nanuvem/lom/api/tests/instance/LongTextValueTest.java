@@ -230,7 +230,7 @@ public abstract class LongTextValueTest extends LomTestCase {
 				"Nothing to say",
 				null,
 				"Invalid value for the Instance. The value for the 'descryption' attribute is mandatory");
-		
+
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
 				"d",
