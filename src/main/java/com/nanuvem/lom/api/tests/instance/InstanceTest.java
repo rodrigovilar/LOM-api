@@ -81,37 +81,4 @@ public abstract class InstanceTest extends LomTestCase {
 		createAndVerifyOneInstance("system.category");
 		createAndVerifyOneInstance("system.category", "va", "vb", "3", "vd");
 	}
-
-	@Test
-	public void updateValueOfTheAttributeValueForOtherValidValues() {
-
-		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "secretKey",
-				AttributeType.PASSWORD, "{\"default\": \"password\"}",
-				"5f6eca57fc12718a639e3433bb02a7c5",
-				"9e107d9d372bb6826bd81d3542a419d6", null);
-	}
-
-	@Test
-	public void updateValueOfTheAttributeValueForInvalidValues() {
-
-		updateOneValueOfInstanceAndVerifyOneException(
-				"abc",
-				"c",
-				"counter",
-				AttributeType.INTEGER,
-				"{\"default\": \"0\", \"minvalue\": 0}",
-				"1",
-				"-3",
-				"Invalid value for the Instance. The value for 'counter' must be greater or equal to 0");
-
-		updateOneValueOfInstanceAndVerifyOneException(
-				"abc",
-				"d",
-				"secretKey",
-				AttributeType.PASSWORD,
-				"{\"default\": \"password\", \"maxlength\": 32}",
-				"5f6eca57fc12718a639e3433bb02a7c5",
-				"9e107d9d372bb6826bd81d3542a419d6asd",
-				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters");
-	}
 }
