@@ -3,6 +3,7 @@ package com.nanuvem.lom.api.tests.attribute;
 import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.createAndVerifyOneAttribute;
 import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.expectExceptionOnCreateInvalidAttribute;
 import static com.nanuvem.lom.api.tests.entity.EntityHelper.createEntity;
+import static com.nanuvem.lom.api.tests.instance.InstanceHelper.*;
 
 import org.junit.Test;
 
@@ -60,5 +61,7 @@ public abstract class IntegerAttributeTest extends LomTestCase {
                 "{\"default\":7, \"minvalue\":9, \"maxvalue\":10}",
                 "Invalid configuration for attribute pa: the default value is smaller than minvalue");
     }
+    
+    
 
 }
