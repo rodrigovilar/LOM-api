@@ -35,7 +35,7 @@ public interface Facade {
 
 	Instance create(Instance instance);
 
-	Instance update(Instance instance1);
+	Instance update(Instance instance);
 
 	Instance findInstanceById(Long id);
 
