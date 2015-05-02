@@ -229,15 +229,15 @@ public abstract class PasswordValueTest extends LomTestCase {
 				AttributeType.PASSWORD, "{\"minlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "e", "secretKey",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "secretKey",
 				AttributeType.PASSWORD, "{\"maxlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "secretKey",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "secretKey",
 				AttributeType.PASSWORD, "{\"minUppers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "secretKey",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "h", "secretKey",
 				AttributeType.PASSWORD, "{\"minNumbers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 

@@ -33,7 +33,7 @@ public class InstanceHelper {
 		Instance instance = new Instance();
 		instance.setEntity(entity);
 
-		for (int i = 0; i < values.length; i++) {
+ 		for (int i = 0; i < values.length; i++) {
 			AttributeValue attributeValue = new AttributeValue();
 			attributeValue.setValue(values[i]);
 

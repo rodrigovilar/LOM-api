@@ -7,4 +7,6 @@ public interface AttributeValueDao {
 
 	AttributeValue create(AttributeValue value);
 
+	AttributeValue update(AttributeValue value);
+
 }
