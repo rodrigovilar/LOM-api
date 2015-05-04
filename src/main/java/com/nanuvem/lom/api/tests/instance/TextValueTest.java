@@ -281,10 +281,11 @@ public abstract class TextValueTest extends LomTestCase {
 				"e",
 				"email",
 				AttributeType.TEXT,
-				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\", \"minlength\":12, \"maxlength\": 12, \"mandatory\":true}",
+				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\", \"minlength\":11, \"maxlength\": 11, \"mandatory\":true}",
 				"abc@abc.com",
-				"someone@nanuvem.com",
-				"Invalid value for the Instance. The value for the 'email' attribute does not meet the defined regular expression, "
-						+ "The value for 'email' must have a maximum length of 12 characters");
+				"some.one@nanuvem.com",
+				"Invalid value for the Instance. "
+						+ "The value for the 'email' attribute does not meet the defined regular expression, "
+						+ "The value for 'email' must have a maximum length of 11 characters");
 	}
 }

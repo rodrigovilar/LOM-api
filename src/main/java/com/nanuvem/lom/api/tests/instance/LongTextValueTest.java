@@ -193,7 +193,7 @@ public abstract class LongTextValueTest extends LomTestCase {
 				"h",
 				"descryption",
 				AttributeType.LONGTEXT,
-				"{\"mandatory\": false, \"maxlength\": 11, \"minlength\": 300}",
+				"{\"mandatory\": false, \"maxlength\": 300, \"minlength\": 11}",
 				"Nothing to say",
 				"Here must contain a description, written by a long text", null);
 	}

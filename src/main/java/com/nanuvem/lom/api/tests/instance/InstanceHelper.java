@@ -33,7 +33,7 @@ public class InstanceHelper {
 		Instance instance = new Instance();
 		instance.setEntity(entity);
 
- 		for (int i = 0; i < values.length; i++) {
+		for (int i = 0; i < values.length; i++) {
 			AttributeValue attributeValue = new AttributeValue();
 			attributeValue.setValue(values[i]);
 
@@ -126,13 +126,14 @@ public class InstanceHelper {
 	}
 
 	public static AttributeValue newAttributeValue(String attributeName,
-			String entityFullName, String value) {
+			String entityFullName, String value, Instance instance) {
 
 		AttributeValue attributeValue = new AttributeValue();
 		attributeValue.setAttribute(facade
 				.findAttributeByNameAndEntityFullName(attributeName,
 						entityFullName));
 		attributeValue.setValue(value);
+		attributeValue.setInstance(instance);
 		return attributeValue;
 	}
 
@@ -173,33 +174,6 @@ public class InstanceHelper {
 
 	}
 
-	static void updateAndVerifyValues(Instance createdInstance,
-			AttributeValue... newValues) {
-
-		for (AttributeValue oldValue : createdInstance.getValues()) {
-			for (AttributeValue newValue : newValues) {
-				if (oldValue.getAttribute().equals(newValue.getAttribute())) {
-					oldValue.setValue(newValue.getValue());
-				}
-			}
-		}
-
-		try {
-			Instance updatedInstance = facade.update(createdInstance);
-			for (AttributeValue updatedValue : updatedInstance.getValues()) {
-				for (AttributeValue newValue : newValues) {
-					if (updatedValue.getAttribute().equals(
-							newValue.getAttribute())) {
-						Assert.assertEquals(newValue.getValue(),
-								updatedValue.getValue());
-					}
-				}
-			}
-		} catch (MetadataException e) {
-			fail();
-		}
-	}
-
 	static void updateOneValueOfInstanceAndVerifyOneException(
 			String namespaceEntity, String nameEntity, String attributeName,
 			AttributeType type, String configuration, String valueOfCreate,
@@ -209,19 +183,17 @@ public class InstanceHelper {
 			createEntity(namespaceEntity, nameEntity);
 			Attribute attribute = createOneAttribute(namespaceEntity + "."
 					+ nameEntity, null, attributeName, type, configuration);
+
 			Instance instance = InstanceHelper.createOneInstance(
 					attribute.getEntity(), valueOfCreate);
+
 			AttributeValue value = instance.getValues().get(0);
 			value.setValue(valueOfUpdate);
-			updateAndVerifyValues(instance, value);
+
+			facade.update(instance);
 
 		} catch (MetadataException e) {
-			if (expectedExceptionMessage != null
-					&& !expectedExceptionMessage.isEmpty()) {
-				Assert.assertEquals(expectedExceptionMessage, e.getMessage());
-			} else {
-				Assert.fail();
-			}
+			Assert.assertEquals(expectedExceptionMessage, e.getMessage());
 		}
 	}
 }
