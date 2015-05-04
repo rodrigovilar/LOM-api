@@ -101,8 +101,7 @@ public abstract class IntegerValueTest extends LomTestCase {
 				AttributeType.INTEGER,
 				"{\"mandatory\" : true, \"minvalue\" : 3}",
 				null,
-				"Invalid value for the Instance. The value for the 'nameC' attribute is mandatory, "
-						+ "The value for 'nameC' must be greater or equal to 3");
+				"Invalid value for the Instance. The value for the 'nameC' attribute is mandatory");
 		invalidValueForInstance(
 				"abc.d",
 				null,
@@ -118,8 +117,7 @@ public abstract class IntegerValueTest extends LomTestCase {
 				AttributeType.INTEGER,
 				"{\"mandatory\" : true, \"maxvalue\" : 3}",
 				null,
-				"Invalid value for the Instance. The value for the 'nameE' attribute is mandatory, "
-						+ "The value for 'nameE' must be smaller or equal to 3");
+				"Invalid value for the Instance. The value for the 'nameE' attribute is mandatory");
 		invalidValueForInstance(
 				"abc.f",
 				null,
@@ -135,9 +133,7 @@ public abstract class IntegerValueTest extends LomTestCase {
 				AttributeType.INTEGER,
 				"{\"mandatory\" : true, \"minvalue\" : 3, \"maxvalue\" : 3}",
 				null,
-				"Invalid value for the Instance. The value for the 'nameG' attribute is mandatory, "
-						+ "The value for 'nameG' must be greater or equal to 3, "
-						+ "The value for 'nameG' must be smaller or equal to 3");
+				"Invalid value for the Instance. The value for the 'nameG' attribute is mandatory");
 	}
 
 	@Test
