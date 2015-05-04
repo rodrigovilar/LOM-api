@@ -181,7 +181,7 @@ public abstract class IntegerValueTest extends LomTestCase {
 				"{\"minvalue\": 5}",
 				"6",
 				"0",
-				"Invalid value for the instance. The value for 'counter' must be greater or equal to 5");
+				"Invalid value for the Instance. The value for 'counter' must be greater or equal to 5");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -191,7 +191,7 @@ public abstract class IntegerValueTest extends LomTestCase {
 				"{\"maxvalue\": 5}",
 				"2",
 				"6",
-				"Invalid value for the instance. The value for 'counter' must be smaller or equal to 5");
+				"Invalid value for the Instance. The value for 'counter' must be smaller or equal to 5");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -201,7 +201,7 @@ public abstract class IntegerValueTest extends LomTestCase {
 				"{\"mandatory\": true}",
 				"2",
 				null,
-				"Invalid value for the instance. The value for the 'counter' attribute is mandatory");
+				"Invalid value for the Instance. The value for the 'counter' attribute is mandatory");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -209,8 +209,8 @@ public abstract class IntegerValueTest extends LomTestCase {
 				"counter",
 				AttributeType.INTEGER,
 				"{\"mandatory\": true, \"minvalue\": 10, \"maxvalue\":10}",
-				"2",
+				"10",
 				"11",
-				"Invalid value for the instance. The value for 'counter' must be smaller or equal to 5");
+				"Invalid value for the Instance. The value for 'counter' must be smaller or equal to 10");
 	}
 }
