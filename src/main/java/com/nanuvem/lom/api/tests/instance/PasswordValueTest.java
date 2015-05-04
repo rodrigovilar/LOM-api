@@ -229,15 +229,15 @@ public abstract class PasswordValueTest extends LomTestCase {
 				AttributeType.PASSWORD, "{\"minlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "e", "secretKey",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "secretKey",
 				AttributeType.PASSWORD, "{\"maxlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "secretKey",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "secretKey",
 				AttributeType.PASSWORD, "{\"minUppers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "secretKey",
+		updateOneValueOfInstanceAndVerifyOneException("abc", "h", "secretKey",
 				AttributeType.PASSWORD, "{\"minNumbers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
@@ -266,7 +266,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"mandatory\": true}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				null,
-				"Invalid value for the Instance. The value for 'secretKey' attribute is mandatory");
+				"Invalid value for the Instance. The value for the 'secretKey' attribute is mandatory");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -276,7 +276,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minlength\": 34}",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"5f6eca57fc12718a639e3433bb02a7c5",
-				"Invalid value for the Instance. The value for 'secretKey' must have a minimum length of 35 characters");
+				"Invalid value for the Instance. The value for 'secretKey' must have a minimum length of 34 characters");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -296,8 +296,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minlength\": 30, \"maxlength\": 32}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
-				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters, "
-						+ "The value for 'secretKey' must have a maximum length of 32 characters");
+				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters");
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
@@ -335,7 +334,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"secretKey",
 				AttributeType.PASSWORD,
 				"{\"maxRepeat\": 2}",
-				"9e&107d9%d",
+				"9e&107d%d",
 				"33bbb2a7c5",
 				"Invalid value for the Instance. The value for 'secretKey' must not have more than 2 repeated characters");
 
@@ -344,16 +343,15 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"i",
 				"secretKey",
 				AttributeType.PASSWORD,
-				"{\"mandatory\": true, \"minlength\": 20, \"maxlength\": 50, \"minUppers\": 5, \"minNumbers\": 5, "
-						+ "\"minSymbols\": 10, \"maxRepeat\": 2}",
-				"9e&107d9%d",
-				"33bbb2a7c5",
+				"{\"mandatory\": true, \"minlength\": 10, \"maxlength\": 50, \"minUppers\": 5, \"minNumbers\": 3, "
+						+ "\"minSymbols\": 2, \"maxRepeat\": 1}",
+				"E&1A7D90%DC",
+				"1aa2ab&D",
 				"Invalid value for the Instance. "
-						+ "The value for 'secretKey' must have a minimum length of 20 characters, "
+						+ "The value for 'secretKey' must have a minimum length of 10 characters, "
 						+ "The value for 'secretKey' must have at least 5 uppercase characters, "
-						+ "The value for 'secretKey' must be at least 5 numbers, "
-						+ "The value for 'secretKey' must have at least 10 symbol characters, "
+						+ "The value for 'secretKey' must be at least 3 numbers, "
+						+ "The value for 'secretKey' must have at least 2 symbol characters, "
 						+ "The value for 'secretKey' must not have more than 2 repeated characters");
-
 	}
 }

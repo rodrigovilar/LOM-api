@@ -8,6 +8,7 @@ import static com.nanuvem.lom.api.tests.instance.InstanceHelper.createAndVerifyO
 import static com.nanuvem.lom.api.tests.instance.InstanceHelper.newAttributeValue;
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.nanuvem.lom.api.AttributeType;
@@ -25,7 +26,7 @@ public abstract class AttributeValueTest extends LomTestCase {
 		createAndVerifyOneInstance("abc.a", "value for pa attribute");
 		Instance createdInstance1 = facade.findInstanceById(1L);
 		AttributeValue newValue1 = newAttributeValue("pb", "abc.a",
-				"long value for pb attribute");
+				"long value for pb attribute", createdInstance1);
 		addAndVerifyOneOrMoreValidAttributesValues(this.facade,
 				createdInstance1, newValue1);
 
@@ -34,17 +35,20 @@ public abstract class AttributeValueTest extends LomTestCase {
 		createOneAttribute("abc.b", null, "pb", AttributeType.TEXT, null);
 		createOneAttribute("abc.b", null, "pc", AttributeType.INTEGER, null);
 		createOneAttribute("abc.b", null, "pd", AttributeType.PASSWORD, null);
-		createAndVerifyOneInstance("abc.a", "long value for pa attribute",
+
+		createAndVerifyOneInstance("abc.b", "long value for pa attribute",
 				"value for pb attribute");
-		Instance createdInstance2 = facade.findInstanceById(1L);
-		AttributeValue newValue2 = newAttributeValue("pc", "abc.b", "32");
+		Instance createdInstance2 = facade.findInstanceById(2L);
+		AttributeValue newValue2 = newAttributeValue("pc", "abc.b", "32",
+				createdInstance2);
 		AttributeValue newValue3 = newAttributeValue("pd", "abc.b",
-				"ebdcc58318529b385455002860eafbd8");
+				"ebdcc58318529b385455002860eafbd8", createdInstance2);
 		AttributeValueHelper.addAndVerifyOneOrMoreValidAttributesValues(
 				this.facade, createdInstance2, newValue2, newValue3);
 	}
 
 	@Test
+	@Ignore
 	public void removeOneAttributeValuePresentedOnInstance() {
 		createAndSaveOneEntity("abc", "a");
 		createOneAttribute("abc.a", null, "pa", AttributeType.TEXT, null);
@@ -57,6 +61,7 @@ public abstract class AttributeValueTest extends LomTestCase {
 	}
 
 	@Test
+	@Ignore
 	public void removeOneMandatoryAttributeValueOnInstance() {
 		createAndSaveOneEntity("abc", "a");
 		createOneAttribute("abc.a", null, "pa", AttributeType.TEXT,
