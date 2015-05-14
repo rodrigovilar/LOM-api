@@ -1,9 +1,9 @@
-package com.nanuvem.lom.api.tests.entity;
+package com.nanuvem.lom.api.tests.entitytype;
 
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.createAndSaveOneEntity;
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.createAndVerifyOneEntity;
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.createAndVerifyTwoEntities;
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.expectExceptionOnCreateInvalidEntity;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createAndSaveOneEntity;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createAndVerifyOneEntity;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createAndVerifyTwoEntities;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.expectExceptionOnCreateInvalidEntity;
 
 import org.junit.Test;
 

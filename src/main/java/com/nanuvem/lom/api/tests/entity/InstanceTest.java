@@ -1,14 +1,14 @@
-package com.nanuvem.lom.api.tests.instance;
+package com.nanuvem.lom.api.tests.entity;
 
-import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.createOneAttribute;
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.createEntity;
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.createAndVerifyOneInstance;
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.expectExceptionOnCreateInvalidInstance;
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.updateOneValueOfInstanceAndVerifyOneException;
+import static com.nanuvem.lom.api.tests.entity.InstanceHelper.createAndVerifyOneInstance;
+import static com.nanuvem.lom.api.tests.entity.InstanceHelper.expectExceptionOnCreateInvalidInstance;
+import static com.nanuvem.lom.api.tests.entity.InstanceHelper.updateOneValueOfInstanceAndVerifyOneException;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createEntity;
+import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.createOneAttribute;
 
 import org.junit.Test;
 
-import com.nanuvem.lom.api.AttributeType;
+import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
 public abstract class InstanceTest extends LomTestCase {
@@ -46,31 +46,31 @@ public abstract class InstanceTest extends LomTestCase {
 	@Test
 	public void entityWithKnownAttributesAndWithoutConfiguration() {
 		createEntity("system", "Client");
-		createOneAttribute("system.Client", null, "pa", AttributeType.TEXT,
+		createOneAttribute("system.Client", null, "pa", Type.TEXT,
 				null);
 
 		createEntity("system", "User");
-		createOneAttribute("system.User", null, "pa", AttributeType.TEXT, null);
-		createOneAttribute("system.User", null, "pb", AttributeType.LONGTEXT,
+		createOneAttribute("system.User", null, "pa", Type.TEXT, null);
+		createOneAttribute("system.User", null, "pb", Type.LONGTEXT,
 				null);
 
 		createEntity("system", "Organization");
 		createOneAttribute("system.Organization", null, "pa",
-				AttributeType.TEXT, null);
+				Type.TEXT, null);
 		createOneAttribute("system.Organization", null, "pb",
-				AttributeType.LONGTEXT, null);
+				Type.LONGTEXT, null);
 		createOneAttribute("system.Organization", null, "pc",
-				AttributeType.INTEGER, null);
+				Type.INTEGER, null);
 
 		createEntity("system", "Category");
-		createOneAttribute("system.Category", null, "pa", AttributeType.TEXT,
+		createOneAttribute("system.Category", null, "pa", Type.TEXT,
 				null);
 		createOneAttribute("system.Category", null, "pb",
-				AttributeType.LONGTEXT, null);
+				Type.LONGTEXT, null);
 		createOneAttribute("system.Category", null, "pc",
-				AttributeType.INTEGER, null);
+				Type.INTEGER, null);
 		createOneAttribute("system.Category", null, "pd",
-				AttributeType.PASSWORD, null);
+				Type.PASSWORD, null);
 
 		createAndVerifyOneInstance("system.client");
 		createAndVerifyOneInstance("system.client", "va");

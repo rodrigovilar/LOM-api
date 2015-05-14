@@ -4,19 +4,17 @@ import java.util.List;
 
 import com.nanuvem.lom.api.Entity;
 
+
 public interface EntityDao {
 
-	Entity create(Entity entity);
+	Entity create(Entity instance);
 
-	List<Entity> listAll();
+	Entity findInstanceById(Long id);
+	
+    List<Entity> findInstancesByEntityId(Long entityId);
 
-	Entity findById(Long id);
-
-	List<Entity> listByFullName(String fragment);
-
-	Entity findByFullName(String fullName);
-
-	Entity update(Entity entity);
+	Entity update(Entity instance);
 
 	void delete(Long id);
+	
 }

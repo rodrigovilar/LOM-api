@@ -1,50 +1,50 @@
-package com.nanuvem.lom.api.tests.attributevalue;
+package com.nanuvem.lom.api.tests.property;
 
 import static org.junit.Assert.fail;
 import junit.framework.Assert;
 
-import com.nanuvem.lom.api.AttributeValue;
+import com.nanuvem.lom.api.Property;
 import com.nanuvem.lom.api.Facade;
-import com.nanuvem.lom.api.Instance;
+import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.MetadataException;
 
 public class AttributeValueHelper {
 
 	public static void addAndVerifyOneOrMoreValidAttributesValues(
-			Facade facade, Instance instance,
-			AttributeValue... newAttributesValues) {
+			Facade facade, Entity instance,
+			Property... newAttributesValues) {
 
-		for (AttributeValue value : newAttributesValues) {
-			instance.getValues().add(value);
+		for (Property value : newAttributesValues) {
+			instance.getProperties().add(value);
 		}
 
-		Instance updatedInstance = facade.update(instance);
+		Entity updatedInstance = facade.update(instance);
 		Assert.assertEquals(instance.getVersion() + 1, updatedInstance
 				.getVersion().intValue());
 
-		for (AttributeValue newAttributeValue : newAttributesValues) {
-			for (AttributeValue updatedAttributeValue : instance.getValues()) {
+		for (Property newAttributeValue : newAttributesValues) {
+			for (Property updatedAttributeValue : instance.getProperties()) {
 				if (newAttributesValues.equals(updatedAttributeValue)) {
 					Assert.assertEquals(0, newAttributeValue.getVersion()
 							.intValue());
-					Assert.assertEquals(newAttributeValue.getInstance(),
+					Assert.assertEquals(newAttributeValue.getEntity(),
 							updatedInstance);
 				}
 			}
 		}
-		Assert.assertEquals(instance.getValues().size()
-				+ newAttributesValues.length, updatedInstance.getValues()
+		Assert.assertEquals(instance.getProperties().size()
+				+ newAttributesValues.length, updatedInstance.getProperties()
 				.size());
 	}
 
-	public static Instance removeAndVerifyAttributeValue(Facade facade,
-			Instance instance, String attributeName, String expectedErrorMessage) {
+	public static Entity removeAndVerifyAttributeValue(Facade facade,
+			Entity instance, String attributeName, String expectedErrorMessage) {
 
-		Instance updatedInstance = null;
+		Entity updatedInstance = null;
 
-		for (AttributeValue av : instance.getValues()) {
-			if (av.getAttribute().getName().equals(attributeName)) {
-				instance.getValues().remove(av);
+		for (Property av : instance.getProperties()) {
+			if (av.getPropertyType().getName().equals(attributeName)) {
+				instance.getProperties().remove(av);
 
 				try {
 					updatedInstance = facade.update(instance);
@@ -72,12 +72,12 @@ public class AttributeValueHelper {
 	}
 
 	private static void validateRemovalAttributeValue(String attributeName,
-			Instance updatedInstance) {
+			Entity updatedInstance) {
 
 		boolean valueWasRemoved = true;
 
-		for (AttributeValue value : updatedInstance.getValues()) {
-			if (value.getAttribute().getName().equals(attributeName)) {
+		for (Property value : updatedInstance.getProperties()) {
+			if (value.getPropertyType().getName().equals(attributeName)) {
 				valueWasRemoved = false;
 			}
 		}

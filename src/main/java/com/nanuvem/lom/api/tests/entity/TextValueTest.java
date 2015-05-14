@@ -1,49 +1,49 @@
-package com.nanuvem.lom.api.tests.instance;
+package com.nanuvem.lom.api.tests.entity;
 
 import org.junit.Test;
 
-import com.nanuvem.lom.api.AttributeType;
+import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.*;
-import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.*;
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.*;
+import static com.nanuvem.lom.api.tests.entity.InstanceHelper.*;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.*;
 
 public abstract class TextValueTest extends LomTestCase {
 
 	@Test
 	public void instanceWithValidValuesForConfigurationOfTextAttributes() {
 		createEntity("abc", "a");
-		createOneAttribute("abc.a", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.a", null, "name", Type.TEXT,
 				"{\"mandatory\": true}");
 		createAndVerifyOneInstance("abc.a", "Jose");
 
 		createEntity("abc", "a1");
-		createOneAttribute("abc.a1", null, "name", AttributeType.TEXT, null);
+		createOneAttribute("abc.a1", null, "name", Type.TEXT, null);
 		createAndVerifyOneInstance("abc.a1", "Jose");
 
 		createEntity("abc", "b");
-		createOneAttribute("abc.b", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.b", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Michael\"}");
 		createAndVerifyOneInstance("abc.b", (String) null);
 
 		createEntity("abc", "c");
-		createOneAttribute("abc.c", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.c", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"minlength\": 6}");
 		createAndVerifyOneInstance("abc.c", (String) null);
 
 		createEntity("abc", "d");
-		createOneAttribute("abc.d", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.d", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 6}");
 		createAndVerifyOneInstance("abc.d", "Johson");
 
 		createEntity("abc", "e");
-		createOneAttribute("abc.e", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.e", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"maxlength\" : 6}");
 		createAndVerifyOneInstance("abc.e", (String) null);
 
 		createEntity("abc", "f");
-		createOneAttribute("abc.f", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.f", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"maxlength\" : 6}");
 		createAndVerifyOneInstance("abc.f", "Johson");
 
@@ -52,12 +52,12 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.g",
 				null,
 				"name",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"minlength\": 6, \"maxlength\" : 6}");
 		createAndVerifyOneInstance("abc.g", (String) null);
 
 		createEntity("abc", "i");
-		createOneAttribute("abc.i", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.i", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 6, \"maxlength\" : 6}");
 		createAndVerifyOneInstance("abc.i", "Johson");
 
@@ -66,12 +66,12 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.j",
 				null,
 				"name",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"minlength\": 3, \"maxlength\" : 8}");
 		createAndVerifyOneInstance("abc.j", (String) null);
 
 		createEntity("abc", "k");
-		createOneAttribute("abc.k", null, "name", AttributeType.TEXT,
+		createOneAttribute("abc.k", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 3, \"maxlength\" : 8}");
 		createAndVerifyOneInstance("abc.k", "Johson");
 
@@ -80,7 +80,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.l",
 				null,
 				"name",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"abc@abc.com\", \"minlength\": 3, \"maxlength\" : 15, "
 						+ "\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}");
 		createAndVerifyOneInstance("abc.l", (String) null);
@@ -90,7 +90,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.m",
 				null,
 				"name",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 3, \"maxlength\" : 15, "
 						+ "\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}");
 		createAndVerifyOneInstance("abc.m", "abc@abc.com");
@@ -110,7 +110,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.a",
 				null,
 				"nameA",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\" : true}",
 				null,
 				"Invalid value for the Instance. The value for the 'nameA' attribute is mandatory");
@@ -118,7 +118,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.b",
 				null,
 				"nameB",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"minlength\" : 5}",
 				"abcd",
 				"Invalid value for the Instance. The value for 'nameB' must have a minimum length of 5 characters");
@@ -126,7 +126,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.ba",
 				null,
 				"nameBA",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\" : true, \"minlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameBA' attribute is mandatory, "
@@ -135,7 +135,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.c",
 				null,
 				"nameC",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameC' must have a maximum length of 5 characters");
@@ -143,7 +143,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.ca",
 				null,
 				"nameCA",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\" : true, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameCA' attribute is mandatory");
@@ -151,7 +151,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.d",
 				null,
 				"nameD",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"minlength\" : 5, \"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameD' must have a maximum length of 5 characters");
@@ -159,7 +159,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc.da",
 				null,
 				"nameDA",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\" : true, \"minlength\" : 5, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameDA' attribute is mandatory, "
@@ -189,45 +189,45 @@ public abstract class TextValueTest extends LomTestCase {
 	public void updateValueOfAttributeValueWithValidValuesAndDifferentAttributeConfigurations() {
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "a", "email",
-				AttributeType.TEXT, null, null, "cba@cba.com", null);
+				Type.TEXT, null, null, "cba@cba.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
 				"b",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
 				"abc@abc.com", "cba@cba.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "email",
-				AttributeType.TEXT, "{\"default\": \"someone@nanuvem.com\"}",
+				Type.TEXT, "{\"default\": \"someone@nanuvem.com\"}",
 				null, "fernando@nanuvem.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "email",
-				AttributeType.TEXT, "{\"minlength\": 10}", null,
+				Type.TEXT, "{\"minlength\": 10}", null,
 				"fernando@nanuvem.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "e", "email",
-				AttributeType.TEXT, "{\"maxlength\": 20}", null,
+				Type.TEXT, "{\"maxlength\": 20}", null,
 				"fernando@nanuvem.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "email",
-				AttributeType.TEXT, "{\"maxlength\": 20, \"minlength\":20}",
+				Type.TEXT, "{\"maxlength\": 20, \"minlength\":20}",
 				null, "fernando@nanuvem.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "email",
-				AttributeType.TEXT, "{\"mandatory\": true}",
+				Type.TEXT, "{\"mandatory\": true}",
 				"someone@nanuvem.com", "fernando@nanuvem.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "h", "email",
-				AttributeType.TEXT, "{\"mandatory\": false}", null,
+				Type.TEXT, "{\"mandatory\": false}", null,
 				"fernando@nanuvem.com", null);
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
 				"i",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\": false, \"maxlength\": 11, \"minlength\":11, "
 						+ "\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
 				"abc@abc.com", "cba@cba.com", null);
@@ -240,7 +240,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc",
 				"a",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
 				"abc@abc.com",
 				"someone@nanuvem.com",
@@ -250,7 +250,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc",
 				"b",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"minlength\": 50}",
 				null,
 				"fernando@nanuvem.com",
@@ -260,7 +260,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc",
 				"c",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"maxlength\": 10}",
 				null,
 				"fernando@nanuvem.com",
@@ -270,7 +270,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc",
 				"d",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"mandatory\": true}",
 				"fernando@nanuvem.com",
 				null,
@@ -280,7 +280,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"abc",
 				"e",
 				"email",
-				AttributeType.TEXT,
+				Type.TEXT,
 				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\", \"minlength\":11, \"maxlength\": 11, \"mandatory\":true}",
 				"abc@abc.com",
 				"some.one@nanuvem.com",

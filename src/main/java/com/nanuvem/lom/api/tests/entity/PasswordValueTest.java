@@ -1,65 +1,65 @@
-package com.nanuvem.lom.api.tests.instance;
+package com.nanuvem.lom.api.tests.entity;
 
 import org.junit.Test;
 
-import com.nanuvem.lom.api.AttributeType;
+import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.*;
-import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.*;
-import static com.nanuvem.lom.api.tests.entity.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.*;
+import static com.nanuvem.lom.api.tests.entity.InstanceHelper.*;
+import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.*;
 
 public abstract class PasswordValueTest extends LomTestCase {
 
 	@Test
 	public void instanceWithValidValuesForTheConfigurationOfAttributesPassword() {
 		createEntity("abc", "a");
-		createOneAttribute("abc.a", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.a", null, "secretKey", Type.PASSWORD,
 				"{\"default\": \"password\"}");
 		createAndVerifyOneInstance("abc.a", (String) null);
 
 		createEntity("abc", "b");
-		createOneAttribute("abc.b", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.b", null, "secretKey", Type.PASSWORD,
 				"{\"minUppers\": 2}");
 		createAndVerifyOneInstance("abc.b", "SecretKey");
 
 		createEntity("abc", "c");
-		createOneAttribute("abc.c", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.c", null, "secretKey", Type.PASSWORD,
 				"{\"minNumbers\": 2}");
 		createAndVerifyOneInstance("abc.c", "1secretkey2");
 
 		createEntity("abc", "d");
-		createOneAttribute("abc.d", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.d", null, "secretKey", Type.PASSWORD,
 				"{\"minSymbols\": 2}");
 		createAndVerifyOneInstance("abc.d", "&secretkey%");
 
 		createEntity("abc", "e");
-		createOneAttribute("abc.e", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.e", null, "secretKey", Type.PASSWORD,
 				"{\"maxRepeat\": 2}");
 		createAndVerifyOneInstance("abc.e", "secretkey");
 
 		createEntity("abc", "f");
-		createOneAttribute("abc.f", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.f", null, "secretKey", Type.PASSWORD,
 				"{\"minlength\": 6}");
 		createAndVerifyOneInstance("abc.f", "secret");
 
 		createEntity("abc", "g");
-		createOneAttribute("abc.g", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.g", null, "secretKey", Type.PASSWORD,
 				"{\"maxlength\": 6}");
 		createAndVerifyOneInstance("abc.g", "secret");
 
 		createEntity("abc", "h");
-		createOneAttribute("abc.h", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.h", null, "secretKey", Type.PASSWORD,
 				"{\"mandatory\": true}");
 		createAndVerifyOneInstance("abc.h", "secret");
 
 		createEntity("abc", "i");
-		createOneAttribute("abc.i", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.i", null, "secretKey", Type.PASSWORD,
 				"{\"mandatory\": false}");
 		createAndVerifyOneInstance("abc.i", (String) null);
 
 		createEntity("abc", "j");
-		createOneAttribute("abc.j", null, "secretKey", AttributeType.PASSWORD,
+		createOneAttribute("abc.j", null, "secretKey", Type.PASSWORD,
 				"{\"mandatory\": true, \"default\": \"mypassword\"}");
 		createAndVerifyOneInstance("abc.j", (String) null);
 
@@ -68,7 +68,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.k",
 				null,
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\": true, \"default\": \"P@ss%W04\", \"minlength\": 6, "
 						+ "\"maxlength\": 9, \"minUppers\": 2, \"minNumbers\": 2, "
 						+ "\"minSymbols\": 2, \"maxRepeat\": 2}");
@@ -95,7 +95,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.a",
 				null,
 				"nameA",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\" : true}",
 				null,
 				"Invalid value for the Instance. The value for the 'nameA' attribute is mandatory");
@@ -103,7 +103,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.b",
 				null,
 				"nameB",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minlength\" : 5}",
 				"abcd",
 				"Invalid value for the Instance. The value for 'nameB' must have a minimum length of 5 characters");
@@ -111,7 +111,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.ba",
 				null,
 				"nameBA",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\" : true, \"minlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameBA' attribute is mandatory, "
@@ -120,7 +120,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.c",
 				null,
 				"nameC",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameC' must have a maximum length of 5 characters");
@@ -128,7 +128,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.ca",
 				null,
 				"nameCA",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\" : true, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameCA' attribute is mandatory");
@@ -136,7 +136,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.d",
 				null,
 				"nameD",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minlength\" : 5, \"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameD' must have a maximum length of 5 characters");
@@ -144,7 +144,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.da",
 				null,
 				"nameDA",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\" : true, \"minlength\" : 5, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameDA' attribute is mandatory, "
@@ -153,7 +153,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.e",
 				null,
 				"nameE",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minUppers\" : 3}",
 				"ABcdef",
 				"Invalid value for the Instance. The value for 'nameE' must have at least 3 uppercase characters");
@@ -161,7 +161,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.f",
 				null,
 				"nameF",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minNumbers\" : 3}",
 				"abc12def",
 				"Invalid value for the Instance. The value for 'nameF' must be at least 3 numbers");
@@ -169,7 +169,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.g",
 				null,
 				"nameG",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minSymbols\" : 3}",
 				"ab%c12def*",
 				"Invalid value for the Instance. The value for 'nameG' must have at least 3 symbol characters");
@@ -177,7 +177,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.h",
 				null,
 				"nameH",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"maxRepeat\" : 0}",
 				"ab%c1a2e*",
 				"Invalid value for the Instance. The value for 'nameH' must not have repeated characters");
@@ -185,7 +185,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.i",
 				null,
 				"nameI",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"maxRepeat\" : 1}",
 				"ab%ac1a2e*",
 				"Invalid value for the Instance. The value for 'nameI' must not have more than 2 repeated characters");
@@ -193,7 +193,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc.j",
 				null,
 				"nameJ",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\": true, \"minlength\": 4, \"maxlength\": 4, \"minUppers\" : 3, \"minNumbers\" : 2, "
 						+ "\"minSymbols\" : 1, \"maxRepeat\" : 0}",
 				"ab1CfdeFa",
@@ -208,48 +208,48 @@ public abstract class PasswordValueTest extends LomTestCase {
 	public void updateValueOfAttributeValueWithValidValuesAndDifferentAttributeConfigurations() {
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "a", "secretKey",
-				AttributeType.PASSWORD, null, null,
+				Type.PASSWORD, null, null,
 				"5f6eca57fc12718a639e3433bb02a7c5", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "b", "secretKey",
-				AttributeType.PASSWORD, "{\"mandatory\": false}",
+				Type.PASSWORD, "{\"mandatory\": false}",
 				"5f6eca57fc12718a639e3433bb02a7c5", null, null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "secretKey",
-				AttributeType.PASSWORD, "{\"mandatory\": true}",
+				Type.PASSWORD, "{\"mandatory\": true}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"default\": \"5f6eca57fc12718a639e3433bb02a7c5\"}", null,
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "e", "secretKey",
-				AttributeType.PASSWORD, "{\"minlength\": 32}", null,
+				Type.PASSWORD, "{\"minlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "secretKey",
-				AttributeType.PASSWORD, "{\"maxlength\": 32}", null,
+				Type.PASSWORD, "{\"maxlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "secretKey",
-				AttributeType.PASSWORD, "{\"minUppers\": 2}", null,
+				Type.PASSWORD, "{\"minUppers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "h", "secretKey",
-				AttributeType.PASSWORD, "{\"minNumbers\": 2}", null,
+				Type.PASSWORD, "{\"minNumbers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
 		updateOneValueOfInstanceAndVerifyOneException("abc", "i", "secretKey",
-				AttributeType.PASSWORD, "{\"maxRepeat\": 10}", null,
+				Type.PASSWORD, "{\"maxRepeat\": 10}", null,
 				"%9e107d9d372bB6826bD81d3542a419d6&", null);
 
 		updateOneValueOfInstanceAndVerifyOneException(
 				"abc",
 				"j",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\": true, \"minlength\": 32, \"maxlength\": 32, \"minNumbers\": 4, \"minSymbols\": 2, \"maxRepeat\": 10}",
 				"5f6eca57FC12718a639e3433bb02a7&%",
 				"%9e107d9d372bB66bD81d3542a419d6&", null);
@@ -262,7 +262,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"a",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\": true}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				null,
@@ -272,7 +272,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"b",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minlength\": 34}",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"5f6eca57fc12718a639e3433bb02a7c5",
@@ -282,7 +282,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"c",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"maxlength\": 32}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
@@ -292,7 +292,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"d",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minlength\": 30, \"maxlength\": 32}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
@@ -302,7 +302,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"e",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minUppers\": 2}",
 				"5f6ECA57fc12718a639e3433bb02a7c5",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
@@ -312,7 +312,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"f",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minNumbers\": 22}",
 				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"5f6eca57fc12718a639e3433bb02a7c5",
@@ -322,7 +322,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"g",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"minSymbols\": 2}",
 				"9e&107d9%d372bb6826bd81d3542a419d6asd",
 				"5f6eca57%fc12718a639e3433bb02a7c5",
@@ -332,7 +332,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"h",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"maxRepeat\": 2}",
 				"9e&107d%d",
 				"33bbb2a7c5",
@@ -342,7 +342,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"abc",
 				"i",
 				"secretKey",
-				AttributeType.PASSWORD,
+				Type.PASSWORD,
 				"{\"mandatory\": true, \"minlength\": 10, \"maxlength\": 50, \"minUppers\": 5, \"minNumbers\": 3, "
 						+ "\"minSymbols\": 2, \"maxRepeat\": 1}",
 				"E&1A7D90%DC",
