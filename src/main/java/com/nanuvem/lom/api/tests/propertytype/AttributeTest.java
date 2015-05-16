@@ -67,6 +67,7 @@ public abstract class AttributeTest extends LomTestCase {
     }
 
     @Test
+    @Ignore
     public void validateSeveralAttributesInTheSameEntity() {
         createEntity("abc", "a");
 
