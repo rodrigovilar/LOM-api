@@ -11,8 +11,7 @@ import com.nanuvem.lom.api.MetadataException;
 public class AttributeValueHelper {
 
 	public static void addAndVerifyOneOrMoreValidAttributesValues(
-			Facade facade, Entity instance,
-			Property... newAttributesValues) {
+			Facade facade, Entity instance, Property... newAttributesValues) {
 
 		for (Property value : newAttributesValues) {
 			instance.getProperties().add(value);
@@ -32,9 +31,8 @@ public class AttributeValueHelper {
 				}
 			}
 		}
-		Assert.assertEquals(instance.getProperties().size()
-				+ newAttributesValues.length, updatedInstance.getProperties()
-				.size());
+		Assert.assertEquals(instance.getProperties().size(), updatedInstance
+				.getProperties().size());
 	}
 
 	public static Entity removeAndVerifyAttributeValue(Facade facade,
