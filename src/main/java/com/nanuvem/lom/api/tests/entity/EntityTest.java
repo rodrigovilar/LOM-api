@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-public abstract class InstanceTest extends LomTestCase {
+public abstract class EntityTest extends LomTestCase {
 
 	@Test
 	public void unknownClass() {
