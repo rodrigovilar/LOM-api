@@ -97,8 +97,7 @@ public class Property implements Serializable {
 		result = prime * result
 				+ ((propertyType == null) ? 0 : propertyType.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((entity == null) ? 0 : entity.hashCode());
+		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
@@ -106,9 +105,8 @@ public class Property implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AttributeValue [value=" + value + ", id=" + id + ", version="
+		return "Property [value=" + value + ", id=" + id + ", version="
 				+ version + "]";
 	}
-	
-	
+
 }

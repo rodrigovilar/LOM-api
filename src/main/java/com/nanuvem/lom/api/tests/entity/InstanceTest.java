@@ -1,10 +1,9 @@
 package com.nanuvem.lom.api.tests.entity;
 
-import static com.nanuvem.lom.api.tests.entity.InstanceHelper.createAndVerifyOneInstance;
-import static com.nanuvem.lom.api.tests.entity.InstanceHelper.expectExceptionOnCreateInvalidInstance;
-import static com.nanuvem.lom.api.tests.entity.InstanceHelper.updateOneValueOfInstanceAndVerifyOneException;
-import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createEntity;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.createOneAttribute;
+import static com.nanuvem.lom.api.tests.entity.EntityHelper.createAndVerifyOneEntity;
+import static com.nanuvem.lom.api.tests.entity.EntityHelper.expectExceptionOnCreateInvalidEntity;
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.createEntityType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.createOnePropertyType;
 
 import org.junit.Test;
 
@@ -15,70 +14,70 @@ public abstract class InstanceTest extends LomTestCase {
 
 	@Test
 	public void unknownClass() {
-		expectExceptionOnCreateInvalidInstance("a", "Entity not found: a", "30");
+		expectExceptionOnCreateInvalidEntity("a", "Entity not found: a", "30");
 
-		expectExceptionOnCreateInvalidInstance("abc.a",
+		expectExceptionOnCreateInvalidEntity("abc.a",
 				"Entity not found: abc.a", "30");
 	}
 
 	@Test
 	public void nullClass() {
-		expectExceptionOnCreateInvalidInstance(null,
+		expectExceptionOnCreateInvalidEntity(null,
 				"Invalid value for Instance entity: The entity is mandatory",
 				"30");
 	}
 
 	@Test
 	public void entityWithoutAttributes() {
-		createEntity("abc", "a");
-		createAndVerifyOneInstance("abc.a");
+		createEntityType("abc", "a");
+		createAndVerifyOneEntity("abc.a");
 
-		createEntity("abc", "b");
-		createAndVerifyOneInstance("abc.b");
+		createEntityType("abc", "b");
+		createAndVerifyOneEntity("abc.b");
 
-		createEntity("", "a");
-		createAndVerifyOneInstance("a");
+		createEntityType("", "a");
+		createAndVerifyOneEntity("a");
 
-		createEntity("", "b");
-		createAndVerifyOneInstance("b");
+		createEntityType("", "b");
+		createAndVerifyOneEntity("b");
 	}
 
 	@Test
 	public void entityWithKnownAttributesAndWithoutConfiguration() {
-		createEntity("system", "Client");
-		createOneAttribute("system.Client", null, "pa", Type.TEXT,
+		createEntityType("system", "Client");
+		createOnePropertyType("system.Client", null, "pa", Type.TEXT,
 				null);
 
-		createEntity("system", "User");
-		createOneAttribute("system.User", null, "pa", Type.TEXT, null);
-		createOneAttribute("system.User", null, "pb", Type.LONGTEXT,
+		createEntityType("system", "User");
+		createOnePropertyType("system.User", null, "pa", Type.TEXT, null);
+		createOnePropertyType("system.User", null, "pb", Type.LONGTEXT,
 				null);
 
-		createEntity("system", "Organization");
-		createOneAttribute("system.Organization", null, "pa",
+		createEntityType("system", "Organization");
+		createOnePropertyType("system.Organization", null, "pa",
 				Type.TEXT, null);
-		createOneAttribute("system.Organization", null, "pb",
+		createOnePropertyType("system.Organization", null, "pb",
 				Type.LONGTEXT, null);
-		createOneAttribute("system.Organization", null, "pc",
+		createOnePropertyType("system.Organization", null, "pc",
 				Type.INTEGER, null);
 
-		createEntity("system", "Category");
-		createOneAttribute("system.Category", null, "pa", Type.TEXT,
+		createEntityType("system", "Category");
+		createOnePropertyType("system.Category", null, "pa", Type.TEXT,
 				null);
-		createOneAttribute("system.Category", null, "pb",
+		createOnePropertyType("system.Category", null, "pb",
 				Type.LONGTEXT, null);
-		createOneAttribute("system.Category", null, "pc",
+		createOnePropertyType("system.Category", null, "pc",
 				Type.INTEGER, null);
-		createOneAttribute("system.Category", null, "pd",
+		createOnePropertyType("system.Category", null, "pd",
 				Type.PASSWORD, null);
 
-		createAndVerifyOneInstance("system.client");
-		createAndVerifyOneInstance("system.client", "va");
-		createAndVerifyOneInstance("system.user");
-		createAndVerifyOneInstance("system.user", "va", "vb");
-		createAndVerifyOneInstance("system.organization");
-		createAndVerifyOneInstance("system.organization", "va", "vb", "3");
-		createAndVerifyOneInstance("system.category");
-		createAndVerifyOneInstance("system.category", "va", "vb", "3", "vd");
+		createAndVerifyOneEntity("system.client");
+		createAndVerifyOneEntity("system.client", "va");
+		createAndVerifyOneEntity("system.user");
+		createAndVerifyOneEntity("system.user", "va", "vb");
+		createAndVerifyOneEntity("system.organization");
+		createAndVerifyOneEntity("system.organization", "va", "vb", "3");
+		createAndVerifyOneEntity("system.category");
+		createAndVerifyOneEntity("system.category", "va", "vb", "3", "vd");
 	}
 }

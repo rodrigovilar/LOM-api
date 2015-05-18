@@ -103,7 +103,7 @@ public class EntityType implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Entity [namespace=" + namespace + ", name=" + name + ", id="
+		return "EntityTpe [namespace=" + namespace + ", name=" + name + ", id="
 				+ id + ", version=" + version + "]";
 	}
 }

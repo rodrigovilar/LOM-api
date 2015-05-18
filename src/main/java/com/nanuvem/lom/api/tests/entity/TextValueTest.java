@@ -5,108 +5,108 @@ import org.junit.Test;
 import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.*;
-import static com.nanuvem.lom.api.tests.entity.InstanceHelper.*;
-import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.*;
+import static com.nanuvem.lom.api.tests.entity.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.*;
 
 public abstract class TextValueTest extends LomTestCase {
 
 	@Test
 	public void instanceWithValidValuesForConfigurationOfTextAttributes() {
-		createEntity("abc", "a");
-		createOneAttribute("abc.a", null, "name", Type.TEXT,
+		createEntityType("abc", "a");
+		createOnePropertyType("abc.a", null, "name", Type.TEXT,
 				"{\"mandatory\": true}");
-		createAndVerifyOneInstance("abc.a", "Jose");
+		createAndVerifyOneEntity("abc.a", "Jose");
 
-		createEntity("abc", "a1");
-		createOneAttribute("abc.a1", null, "name", Type.TEXT, null);
-		createAndVerifyOneInstance("abc.a1", "Jose");
+		createEntityType("abc", "a1");
+		createOnePropertyType("abc.a1", null, "name", Type.TEXT, null);
+		createAndVerifyOneEntity("abc.a1", "Jose");
 
-		createEntity("abc", "b");
-		createOneAttribute("abc.b", null, "name", Type.TEXT,
+		createEntityType("abc", "b");
+		createOnePropertyType("abc.b", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Michael\"}");
-		createAndVerifyOneInstance("abc.b", (String) null);
+		createAndVerifyOneEntity("abc.b", (String) null);
 
-		createEntity("abc", "c");
-		createOneAttribute("abc.c", null, "name", Type.TEXT,
+		createEntityType("abc", "c");
+		createOnePropertyType("abc.c", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"minlength\": 6}");
-		createAndVerifyOneInstance("abc.c", (String) null);
+		createAndVerifyOneEntity("abc.c", (String) null);
 
-		createEntity("abc", "d");
-		createOneAttribute("abc.d", null, "name", Type.TEXT,
+		createEntityType("abc", "d");
+		createOnePropertyType("abc.d", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 6}");
-		createAndVerifyOneInstance("abc.d", "Johson");
+		createAndVerifyOneEntity("abc.d", "Johson");
 
-		createEntity("abc", "e");
-		createOneAttribute("abc.e", null, "name", Type.TEXT,
+		createEntityType("abc", "e");
+		createOnePropertyType("abc.e", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.e", (String) null);
+		createAndVerifyOneEntity("abc.e", (String) null);
 
-		createEntity("abc", "f");
-		createOneAttribute("abc.f", null, "name", Type.TEXT,
+		createEntityType("abc", "f");
+		createOnePropertyType("abc.f", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.f", "Johson");
+		createAndVerifyOneEntity("abc.f", "Johson");
 
-		createEntity("abc", "g");
-		createOneAttribute(
+		createEntityType("abc", "g");
+		createOnePropertyType(
 				"abc.g",
 				null,
 				"name",
 				Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"minlength\": 6, \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.g", (String) null);
+		createAndVerifyOneEntity("abc.g", (String) null);
 
-		createEntity("abc", "i");
-		createOneAttribute("abc.i", null, "name", Type.TEXT,
+		createEntityType("abc", "i");
+		createOnePropertyType("abc.i", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 6, \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.i", "Johson");
+		createAndVerifyOneEntity("abc.i", "Johson");
 
-		createEntity("abc", "j");
-		createOneAttribute(
+		createEntityType("abc", "j");
+		createOnePropertyType(
 				"abc.j",
 				null,
 				"name",
 				Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"Johson\", \"minlength\": 3, \"maxlength\" : 8}");
-		createAndVerifyOneInstance("abc.j", (String) null);
+		createAndVerifyOneEntity("abc.j", (String) null);
 
-		createEntity("abc", "k");
-		createOneAttribute("abc.k", null, "name", Type.TEXT,
+		createEntityType("abc", "k");
+		createOnePropertyType("abc.k", null, "name", Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 3, \"maxlength\" : 8}");
-		createAndVerifyOneInstance("abc.k", "Johson");
+		createAndVerifyOneEntity("abc.k", "Johson");
 
-		createEntity("abc", "l");
-		createOneAttribute(
+		createEntityType("abc", "l");
+		createOnePropertyType(
 				"abc.l",
 				null,
 				"name",
 				Type.TEXT,
 				"{\"mandatory\": true, \"default\": \"abc@abc.com\", \"minlength\": 3, \"maxlength\" : 15, "
 						+ "\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}");
-		createAndVerifyOneInstance("abc.l", (String) null);
+		createAndVerifyOneEntity("abc.l", (String) null);
 
-		createEntity("abc", "m");
-		createOneAttribute(
+		createEntityType("abc", "m");
+		createOnePropertyType(
 				"abc.m",
 				null,
 				"name",
 				Type.TEXT,
 				"{\"mandatory\": true, \"minlength\": 3, \"maxlength\" : 15, "
 						+ "\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}");
-		createAndVerifyOneInstance("abc.m", "abc@abc.com");
+		createAndVerifyOneEntity("abc.m", "abc@abc.com");
 	}
 
 	@Test
 	public void instanceWithInvalidValuesForConfigurationOfTextAttributes() {
-		createEntity("abc", "a");
-		createEntity("abc", "b");
-		createEntity("abc", "ba");
-		createEntity("abc", "c");
-		createEntity("abc", "ca");
-		createEntity("abc", "d");
-		createEntity("abc", "da");
+		createEntityType("abc", "a");
+		createEntityType("abc", "b");
+		createEntityType("abc", "ba");
+		createEntityType("abc", "c");
+		createEntityType("abc", "ca");
+		createEntityType("abc", "d");
+		createEntityType("abc", "da");
 
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.a",
 				null,
 				"nameA",
@@ -114,7 +114,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"{\"mandatory\" : true}",
 				null,
 				"Invalid value for the Instance. The value for the 'nameA' attribute is mandatory");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.b",
 				null,
 				"nameB",
@@ -122,7 +122,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"{\"minlength\" : 5}",
 				"abcd",
 				"Invalid value for the Instance. The value for 'nameB' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.ba",
 				null,
 				"nameBA",
@@ -131,7 +131,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"",
 				"Invalid value for the Instance. The value for the 'nameBA' attribute is mandatory, "
 						+ "The value for 'nameBA' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.c",
 				null,
 				"nameC",
@@ -139,7 +139,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"{\"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameC' must have a maximum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.ca",
 				null,
 				"nameCA",
@@ -147,7 +147,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"{\"mandatory\" : true, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameCA' attribute is mandatory");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.d",
 				null,
 				"nameD",
@@ -155,7 +155,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"{\"minlength\" : 5, \"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameD' must have a maximum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.da",
 				null,
 				"nameDA",
@@ -188,10 +188,10 @@ public abstract class TextValueTest extends LomTestCase {
 	@Test
 	public void updateValueOfAttributeValueWithValidValuesAndDifferentAttributeConfigurations() {
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "a", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "a", "email",
 				Type.TEXT, null, null, "cba@cba.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"b",
 				"email",
@@ -199,31 +199,31 @@ public abstract class TextValueTest extends LomTestCase {
 				"{\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\"}",
 				"abc@abc.com", "cba@cba.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "c", "email",
 				Type.TEXT, "{\"default\": \"someone@nanuvem.com\"}",
 				null, "fernando@nanuvem.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "d", "email",
 				Type.TEXT, "{\"minlength\": 10}", null,
 				"fernando@nanuvem.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "e", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "e", "email",
 				Type.TEXT, "{\"maxlength\": 20}", null,
 				"fernando@nanuvem.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "f", "email",
 				Type.TEXT, "{\"maxlength\": 20, \"minlength\":20}",
 				null, "fernando@nanuvem.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "g", "email",
 				Type.TEXT, "{\"mandatory\": true}",
 				"someone@nanuvem.com", "fernando@nanuvem.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "h", "email",
+		updateOneValueOfEntityAndVerifyOneException("abc", "h", "email",
 				Type.TEXT, "{\"mandatory\": false}", null,
 				"fernando@nanuvem.com", null);
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"i",
 				"email",
@@ -236,7 +236,7 @@ public abstract class TextValueTest extends LomTestCase {
 	@Test
 	public void expectAnExceptionWhenUpdatingAttributeValueWithInvalidValue() {
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"a",
 				"email",
@@ -246,7 +246,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"someone@nanuvem.com",
 				"Invalid value for the Instance. The value for the 'email' attribute does not meet the defined regular expression");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"b",
 				"email",
@@ -256,7 +256,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"fernando@nanuvem.com",
 				"Invalid value for the Instance. The value for 'email' must have a minimum length of 50 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"c",
 				"email",
@@ -266,7 +266,7 @@ public abstract class TextValueTest extends LomTestCase {
 				"fernando@nanuvem.com",
 				"Invalid value for the Instance. The value for 'email' must have a maximum length of 10 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"d",
 				"email",
@@ -276,7 +276,7 @@ public abstract class TextValueTest extends LomTestCase {
 				null,
 				"Invalid value for the Instance. The value for the 'email' attribute is mandatory");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"e",
 				"email",

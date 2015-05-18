@@ -84,7 +84,7 @@ public class Entity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Instance [id=" + id + ", version=" + version + ", values="
+		return "Entity [id=" + id + ", version=" + version + ", values="
 				+ properties + "]";
 	}
 

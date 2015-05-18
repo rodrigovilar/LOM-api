@@ -4,9 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 
 import com.nanuvem.lom.api.Facade;
-import com.nanuvem.lom.api.tests.entity.InstanceHelper;
-import com.nanuvem.lom.api.tests.entitytype.EntityHelper;
-import com.nanuvem.lom.api.tests.propertytype.AttributeHelper;
+import com.nanuvem.lom.api.tests.entity.EntityHelper;
+import com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper;
+import com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper;
 
 public abstract class LomTestCase {
 
@@ -23,9 +23,9 @@ public abstract class LomTestCase {
 	@Before
 	public void init() {
 		facade = createFacade();
+		EntityTypeHelper.setFacade(facade);
+		PropertyTypeHelper.setFacade(facade);
 		EntityHelper.setFacade(facade);
-		AttributeHelper.setFacade(facade);
-		InstanceHelper.setFacade(facade);
 
 		this.facade.getDaoFactory().createDatabaseSchema();
 	}

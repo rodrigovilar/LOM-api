@@ -1,6 +1,6 @@
 package com.nanuvem.lom.api.tests.entitytype;
 
-import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createEntity;
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.createEntityType;
 import static org.junit.Assert.fail;
 
 import org.junit.Assert;
@@ -10,11 +10,11 @@ import com.nanuvem.lom.api.EntityType;
 import com.nanuvem.lom.api.MetadataException;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-public abstract class DeleteEntityTest extends LomTestCase {
+public abstract class DeleteEntityTypeTest extends LomTestCase {
 
     @Test
     public void deleteEntity() {
-        EntityType c = createEntity("a", "aaa");
+        EntityType c = createEntityType("a", "aaa");
         facade.deleteEntityType(c.getId());
 
         try {

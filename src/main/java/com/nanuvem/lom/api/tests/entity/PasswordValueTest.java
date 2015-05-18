@@ -5,66 +5,66 @@ import org.junit.Test;
 import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.*;
-import static com.nanuvem.lom.api.tests.entity.InstanceHelper.*;
-import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.*;
+import static com.nanuvem.lom.api.tests.entity.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.*;
 
 public abstract class PasswordValueTest extends LomTestCase {
 
 	@Test
 	public void instanceWithValidValuesForTheConfigurationOfAttributesPassword() {
-		createEntity("abc", "a");
-		createOneAttribute("abc.a", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "a");
+		createOnePropertyType("abc.a", null, "secretKey", Type.PASSWORD,
 				"{\"default\": \"password\"}");
-		createAndVerifyOneInstance("abc.a", (String) null);
+		createAndVerifyOneEntity("abc.a", (String) null);
 
-		createEntity("abc", "b");
-		createOneAttribute("abc.b", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "b");
+		createOnePropertyType("abc.b", null, "secretKey", Type.PASSWORD,
 				"{\"minUppers\": 2}");
-		createAndVerifyOneInstance("abc.b", "SecretKey");
+		createAndVerifyOneEntity("abc.b", "SecretKey");
 
-		createEntity("abc", "c");
-		createOneAttribute("abc.c", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "c");
+		createOnePropertyType("abc.c", null, "secretKey", Type.PASSWORD,
 				"{\"minNumbers\": 2}");
-		createAndVerifyOneInstance("abc.c", "1secretkey2");
+		createAndVerifyOneEntity("abc.c", "1secretkey2");
 
-		createEntity("abc", "d");
-		createOneAttribute("abc.d", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "d");
+		createOnePropertyType("abc.d", null, "secretKey", Type.PASSWORD,
 				"{\"minSymbols\": 2}");
-		createAndVerifyOneInstance("abc.d", "&secretkey%");
+		createAndVerifyOneEntity("abc.d", "&secretkey%");
 
-		createEntity("abc", "e");
-		createOneAttribute("abc.e", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "e");
+		createOnePropertyType("abc.e", null, "secretKey", Type.PASSWORD,
 				"{\"maxRepeat\": 2}");
-		createAndVerifyOneInstance("abc.e", "secretkey");
+		createAndVerifyOneEntity("abc.e", "secretkey");
 
-		createEntity("abc", "f");
-		createOneAttribute("abc.f", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "f");
+		createOnePropertyType("abc.f", null, "secretKey", Type.PASSWORD,
 				"{\"minlength\": 6}");
-		createAndVerifyOneInstance("abc.f", "secret");
+		createAndVerifyOneEntity("abc.f", "secret");
 
-		createEntity("abc", "g");
-		createOneAttribute("abc.g", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "g");
+		createOnePropertyType("abc.g", null, "secretKey", Type.PASSWORD,
 				"{\"maxlength\": 6}");
-		createAndVerifyOneInstance("abc.g", "secret");
+		createAndVerifyOneEntity("abc.g", "secret");
 
-		createEntity("abc", "h");
-		createOneAttribute("abc.h", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "h");
+		createOnePropertyType("abc.h", null, "secretKey", Type.PASSWORD,
 				"{\"mandatory\": true}");
-		createAndVerifyOneInstance("abc.h", "secret");
+		createAndVerifyOneEntity("abc.h", "secret");
 
-		createEntity("abc", "i");
-		createOneAttribute("abc.i", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "i");
+		createOnePropertyType("abc.i", null, "secretKey", Type.PASSWORD,
 				"{\"mandatory\": false}");
-		createAndVerifyOneInstance("abc.i", (String) null);
+		createAndVerifyOneEntity("abc.i", (String) null);
 
-		createEntity("abc", "j");
-		createOneAttribute("abc.j", null, "secretKey", Type.PASSWORD,
+		createEntityType("abc", "j");
+		createOnePropertyType("abc.j", null, "secretKey", Type.PASSWORD,
 				"{\"mandatory\": true, \"default\": \"mypassword\"}");
-		createAndVerifyOneInstance("abc.j", (String) null);
+		createAndVerifyOneEntity("abc.j", (String) null);
 
-		createEntity("abc", "k");
-		createOneAttribute(
+		createEntityType("abc", "k");
+		createOnePropertyType(
 				"abc.k",
 				null,
 				"secretKey",
@@ -72,26 +72,26 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"mandatory\": true, \"default\": \"P@ss%W04\", \"minlength\": 6, "
 						+ "\"maxlength\": 9, \"minUppers\": 2, \"minNumbers\": 2, "
 						+ "\"minSymbols\": 2, \"maxRepeat\": 2}");
-		createAndVerifyOneInstance("abc.k", "0tH3r@$Ss");
+		createAndVerifyOneEntity("abc.k", "0tH3r@$Ss");
 	}
 
 	@Test
 	public void instanceWithInvalidValuesForTheConfigurationOfAttributesPassword() {
-		createEntity("abc", "a");
-		createEntity("abc", "b");
-		createEntity("abc", "ba");
-		createEntity("abc", "c");
-		createEntity("abc", "ca");
-		createEntity("abc", "d");
-		createEntity("abc", "da");
-		createEntity("abc", "e");
-		createEntity("abc", "f");
-		createEntity("abc", "g");
-		createEntity("abc", "h");
-		createEntity("abc", "i");
-		createEntity("abc", "j");
+		createEntityType("abc", "a");
+		createEntityType("abc", "b");
+		createEntityType("abc", "ba");
+		createEntityType("abc", "c");
+		createEntityType("abc", "ca");
+		createEntityType("abc", "d");
+		createEntityType("abc", "da");
+		createEntityType("abc", "e");
+		createEntityType("abc", "f");
+		createEntityType("abc", "g");
+		createEntityType("abc", "h");
+		createEntityType("abc", "i");
+		createEntityType("abc", "j");
 
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.a",
 				null,
 				"nameA",
@@ -99,7 +99,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"mandatory\" : true}",
 				null,
 				"Invalid value for the Instance. The value for the 'nameA' attribute is mandatory");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.b",
 				null,
 				"nameB",
@@ -107,7 +107,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minlength\" : 5}",
 				"abcd",
 				"Invalid value for the Instance. The value for 'nameB' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.ba",
 				null,
 				"nameBA",
@@ -116,7 +116,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"",
 				"Invalid value for the Instance. The value for the 'nameBA' attribute is mandatory, "
 						+ "The value for 'nameBA' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.c",
 				null,
 				"nameC",
@@ -124,7 +124,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameC' must have a maximum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.ca",
 				null,
 				"nameCA",
@@ -132,7 +132,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"mandatory\" : true, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameCA' attribute is mandatory");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.d",
 				null,
 				"nameD",
@@ -140,7 +140,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minlength\" : 5, \"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameD' must have a maximum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.da",
 				null,
 				"nameDA",
@@ -149,7 +149,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"",
 				"Invalid value for the Instance. The value for the 'nameDA' attribute is mandatory, "
 						+ "The value for 'nameDA' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.e",
 				null,
 				"nameE",
@@ -157,7 +157,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minUppers\" : 3}",
 				"ABcdef",
 				"Invalid value for the Instance. The value for 'nameE' must have at least 3 uppercase characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.f",
 				null,
 				"nameF",
@@ -165,7 +165,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minNumbers\" : 3}",
 				"abc12def",
 				"Invalid value for the Instance. The value for 'nameF' must be at least 3 numbers");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.g",
 				null,
 				"nameG",
@@ -173,7 +173,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"minSymbols\" : 3}",
 				"ab%c12def*",
 				"Invalid value for the Instance. The value for 'nameG' must have at least 3 symbol characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.h",
 				null,
 				"nameH",
@@ -181,7 +181,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"maxRepeat\" : 0}",
 				"ab%c1a2e*",
 				"Invalid value for the Instance. The value for 'nameH' must not have repeated characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.i",
 				null,
 				"nameI",
@@ -189,7 +189,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"{\"maxRepeat\" : 1}",
 				"ab%ac1a2e*",
 				"Invalid value for the Instance. The value for 'nameI' must not have more than 2 repeated characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.j",
 				null,
 				"nameJ",
@@ -207,45 +207,45 @@ public abstract class PasswordValueTest extends LomTestCase {
 	@Test
 	public void updateValueOfAttributeValueWithValidValuesAndDifferentAttributeConfigurations() {
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "a", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "a", "secretKey",
 				Type.PASSWORD, null, null,
 				"5f6eca57fc12718a639e3433bb02a7c5", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "b", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "b", "secretKey",
 				Type.PASSWORD, "{\"mandatory\": false}",
 				"5f6eca57fc12718a639e3433bb02a7c5", null, null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "c", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "c", "secretKey",
 				Type.PASSWORD, "{\"mandatory\": true}",
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "d", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "d", "secretKey",
 				Type.PASSWORD,
 				"{\"default\": \"5f6eca57fc12718a639e3433bb02a7c5\"}", null,
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "e", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "e", "secretKey",
 				Type.PASSWORD, "{\"minlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6asd", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "f", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "f", "secretKey",
 				Type.PASSWORD, "{\"maxlength\": 32}", null,
 				"9e107d9d372bb6826bd81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "g", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "g", "secretKey",
 				Type.PASSWORD, "{\"minUppers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "h", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "h", "secretKey",
 				Type.PASSWORD, "{\"minNumbers\": 2}", null,
 				"9e107d9d372bB6826bD81d3542a419d6", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "i", "secretKey",
+		updateOneValueOfEntityAndVerifyOneException("abc", "i", "secretKey",
 				Type.PASSWORD, "{\"maxRepeat\": 10}", null,
 				"%9e107d9d372bB6826bD81d3542a419d6&", null);
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"j",
 				"secretKey",
@@ -258,7 +258,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 	@Test
 	public void expectAnExceptionWhenUpdatingAttributeValueWithInvalidValue() {
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"a",
 				"secretKey",
@@ -268,7 +268,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				null,
 				"Invalid value for the Instance. The value for the 'secretKey' attribute is mandatory");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"b",
 				"secretKey",
@@ -278,7 +278,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"Invalid value for the Instance. The value for 'secretKey' must have a minimum length of 34 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"c",
 				"secretKey",
@@ -288,7 +288,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"d",
 				"secretKey",
@@ -298,7 +298,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"Invalid value for the Instance. The value for 'secretKey' must have a maximum length of 32 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"e",
 				"secretKey",
@@ -308,7 +308,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"9e107d9d372bb6826bd81d3542a419d6asd",
 				"Invalid value for the Instance. The value for 'secretKey' must have at least 2 uppercase characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"f",
 				"secretKey",
@@ -318,7 +318,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"5f6eca57fc12718a639e3433bb02a7c5",
 				"Invalid value for the Instance. The value for 'secretKey' must be at least 22 numbers");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"g",
 				"secretKey",
@@ -328,7 +328,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"5f6eca57%fc12718a639e3433bb02a7c5",
 				"Invalid value for the Instance. The value for 'secretKey' must have at least 2 symbol characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"h",
 				"secretKey",
@@ -338,7 +338,7 @@ public abstract class PasswordValueTest extends LomTestCase {
 				"33bbb2a7c5",
 				"Invalid value for the Instance. The value for 'secretKey' must not have more than 2 repeated characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"i",
 				"secretKey",

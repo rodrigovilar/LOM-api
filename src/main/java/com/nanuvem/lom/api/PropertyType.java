@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class PropertyType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public final static String MAXVALUE_CONFIGURATION_NAME = "maxvalue";
 	public final static String MINVALUE_CONFIGURATION_NAME = "minvalue";
 	public final static String MAXREPEAT_CONFIGURATION_NAME = "maxRepeat";
@@ -17,7 +17,7 @@ public class PropertyType implements Serializable {
 	public final static String REGEX_CONFIGURATION_NAME = "regex";
 	public final static String DEFAULT_CONFIGURATION_NAME = "default";
 	public final static String MANDATORY_CONFIGURATION_NAME = "mandatory";
-	
+
 	private Long id;
 
 	private Integer version;
@@ -144,9 +144,9 @@ public class PropertyType implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Attribute [sequence=" + sequence + ", name=" + name + ", type="
-				+ type + ", configuration=" + configuration + ", id=" + id
-				+ ", version=" + version + "]";
+		return "PropertyType [sequence=" + sequence + ", name=" + name
+				+ ", type=" + type + ", configuration=" + configuration
+				+ ", id=" + id + ", version=" + version + "]";
 	}
 
 }

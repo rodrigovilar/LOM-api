@@ -1,16 +1,11 @@
 package com.nanuvem.lom.api.tests.propertytype;
 
-import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createEntity;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.createAndVerifyOneAttribute;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.expectExceptionOnCreateInvalidAttribute;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-public abstract class ObjectAttributeTest extends LomTestCase {
+public abstract class ObjectPropertyTypeTest extends LomTestCase {
 
     @Test
     @Ignore

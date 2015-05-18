@@ -1,21 +1,21 @@
 package com.nanuvem.lom.api.tests.propertytype;
 
-import static com.nanuvem.lom.api.tests.entitytype.EntityHelper.createEntity;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.MANDATORY_TRUE;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.TEXT;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.createAndVerifyOneAttribute;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.createOneAttribute;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.expectExceptionOnCreateInvalidAttribute;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.expectExceptionOnUpdateInvalidAttribute;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.updateAttribute;
-import static com.nanuvem.lom.api.tests.propertytype.AttributeHelper.verifyUpdatedAttribute;
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.createEntityType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.MANDATORY_TRUE;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.TEXT;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.createAndVerifyOnePropertyType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.createOnePropertyType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.expectExceptionOnCreateInvalidPropertyType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.expectExceptionOnUpdateInvalidPropertyType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.updateAttribute;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.verifyUpdatedPropertyType;
 
 import org.junit.Test;
 
 import com.nanuvem.lom.api.PropertyType;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-public abstract class TextAttributeTest extends LomTestCase {
+public abstract class TextPropertyTypeTest extends LomTestCase {
 
     private static final String TEXT_CONFIGURATION_PARTIAL = "{\"minlength\": 5,\"maxlength\": 15}";
 
@@ -26,147 +26,147 @@ public abstract class TextAttributeTest extends LomTestCase {
 
     @Test
     public void validateConfigurationForTextAttributeType() {
-        createEntity("abc", "a");
+        createEntityType("abc", "a");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pa", TEXT,
+        createAndVerifyOnePropertyType("abc.a", 1, "pa", TEXT,
                 "{\"regex\":\"(\\\\w[-.\\\\w]*\\\\w@\\\\w[-.\\\\w]\\\\w.\\\\w{2,3})\"}");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pb", TEXT, "{\"minlength\":10}");
+        createAndVerifyOnePropertyType("abc.a", 1, "pb", TEXT, "{\"minlength\":10}");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pc", TEXT, "{\"minlength\":100}");
+        createAndVerifyOnePropertyType("abc.a", 1, "pc", TEXT, "{\"minlength\":100}");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pd", TEXT, "{\"mandatory\": true, \"regex\": "
+        createAndVerifyOnePropertyType("abc.a", 1, "pd", TEXT, "{\"mandatory\": true, \"regex\": "
                 + "\"(\\\\w[-._\\\\w]\\\\w@\\\\w[-.\\\\w]*\\\\w.\\\\w{2,3})\", "
                 + "\"minlength\": 5,\"maxlength\": 15}");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pe", TEXT, "");
+        createAndVerifyOnePropertyType("abc.a", 1, "pe", TEXT, "");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pf", TEXT,
+        createAndVerifyOnePropertyType("abc.a", 1, "pf", TEXT,
                 "{\"default\": \"abc@abc.com\",\"regex\": \"(\\\\w[-.\\\\w]\\\\w@\\\\w[-._\\\\w]\\\\w.\\\\w{2,3})\","
                         + "\"minlength\": 5,\"maxlength\": 15}");
 
-        createAndVerifyOneAttribute("abc.a", 1, "pg", TEXT, "{\"default\":\"abc\"}");
+        createAndVerifyOnePropertyType("abc.a", 1, "pg", TEXT, "{\"default\":\"abc\"}");
 
     }
 
     @Test
     public void invalidConfigurationForTextAttributeType() {
-        createEntity("abc", "a");
+        createEntityType("abc", "a");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"mandatory\":10}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"mandatory\":10}",
                 "Invalid configuration for attribute pa: the mandatory value must be true or false literals");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"mandatory\":\"true\"}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"mandatory\":\"true\"}",
                 "Invalid configuration for attribute pa: the mandatory value must be true or false literals");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"default\":10}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"default\":10}",
                 "Invalid configuration for attribute pa: the default value must be a string");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"regex\":10}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"regex\":10}",
                 "Invalid configuration for attribute pa: the regex value must be a string");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"minlength\":\"abc\"}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"minlength\":\"abc\"}",
                 "Invalid configuration for attribute pa: the minlength value must be an integer number");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"minlength\":10.0}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"minlength\":10.0}",
                 "Invalid configuration for attribute pa: the minlength value must be an integer number");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"maxlength\":\"abc\"}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"maxlength\":\"abc\"}",
                 "Invalid configuration for attribute pa: the maxlength value must be an integer number");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT, "{\"maxlength\":10.0}",
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT, "{\"maxlength\":10.0}",
                 "Invalid configuration for attribute pa: the maxlength value must be an integer number");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT,
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT,
                 "{\"default\":\"abc\", \"regex\":\"(\\\\w[-.\\\\w]*\\\\w@\\\\w[-.\\\\w]*\\\\w.\\\\w{2,3})\"}",
                 "Invalid configuration for attribute pa: the default value does not match regex configuration");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT,
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT,
                 "{\"default\":\"abc\", \"minlength\":5}",
                 "Invalid configuration for attribute pa: the default value is smaller than minlength");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT,
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT,
                 "{\"default\":\"abcabc\", \"maxlength\":5}",
                 "Invalid configuration for attribute pa: the default value is greater than maxlength");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT,
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT,
                 "{\"minlength\":50, \"maxlength\":10}",
                 "Invalid configuration for attribute pa: the minlength is greater than maxlength");
 
-        expectExceptionOnCreateInvalidAttribute("abc.a", null, "pa", TEXT,
+        expectExceptionOnCreateInvalidPropertyType("abc.a", null, "pa", TEXT,
                 "{\"default\":\"abc\", \"minlength\":9, \"maxlength\":50}",
                 "Invalid configuration for attribute pa: the default value is smaller than minlength");
     }
 
     @Test
     public void validChangeConfigurationForTextAttributeType() {
-        createEntity("abc", "a");
+        createEntityType("abc", "a");
 
-        PropertyType createdAttribute1 = createOneAttribute("abc.a", null, "pa", TEXT, MANDATORY_TRUE);
-        PropertyType createdAttribute2 = createOneAttribute("abc.a", null, "pb", TEXT, TEXT_CONFIGURATION_COMPLETE);
+        PropertyType createdAttribute1 = createOnePropertyType("abc.a", null, "pa", TEXT, MANDATORY_TRUE);
+        PropertyType createdAttribute2 = createOnePropertyType("abc.a", null, "pb", TEXT, TEXT_CONFIGURATION_COMPLETE);
 
         PropertyType updatedAttribute11 = updateAttribute("abc.a", createdAttribute1, null, "pa", TEXT,
                 TEXT_CONFIGURATION_PARTIAL);
-        verifyUpdatedAttribute(createdAttribute1, updatedAttribute11);
+        verifyUpdatedPropertyType(createdAttribute1, updatedAttribute11);
 
         PropertyType updatedAttribute12 = updateAttribute("abc.a", updatedAttribute11, null, "pa", TEXT,
                 TEXT_CONFIGURATION_COMPLETE);
-        verifyUpdatedAttribute(updatedAttribute11, updatedAttribute12);
+        verifyUpdatedPropertyType(updatedAttribute11, updatedAttribute12);
 
         PropertyType updatedAttribute21 = updateAttribute("abc.a", createdAttribute2, null, "pb", TEXT,
                 TEXT_CONFIGURATION_PARTIAL);
-        verifyUpdatedAttribute(createdAttribute2, updatedAttribute21);
+        verifyUpdatedPropertyType(createdAttribute2, updatedAttribute21);
 
         PropertyType updatedAttribute22 = updateAttribute("abc.a", updatedAttribute21, null, "pb", TEXT,
                 MANDATORY_TRUE);
-        verifyUpdatedAttribute(updatedAttribute21, updatedAttribute22);
+        verifyUpdatedPropertyType(updatedAttribute21, updatedAttribute22);
 
         PropertyType updatedAttribute23 = updateAttribute("abc.a", updatedAttribute22, null, "pb", TEXT,
                 "{\"default\":\"abc\"}");
-        verifyUpdatedAttribute(updatedAttribute22, updatedAttribute23);
+        verifyUpdatedPropertyType(updatedAttribute22, updatedAttribute23);
 
         PropertyType updatedAttribute24 = updateAttribute("abc.a", updatedAttribute23, null, "pb", TEXT,
                 "{\"default\":\"123\"}");
-        verifyUpdatedAttribute(updatedAttribute23, updatedAttribute24);
+        verifyUpdatedPropertyType(updatedAttribute23, updatedAttribute24);
     }
 
     @Test
     public void invalidChangeConfigurationForTextAttributeType() {
-        createEntity("abc", "a");
-        PropertyType createdAttribute = createOneAttribute("abc.a", null, "pa", TEXT, null);
+        createEntityType("abc", "a");
+        PropertyType createdAttribute = createOnePropertyType("abc.a", null, "pa", TEXT, null);
 
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"mandatory\":10}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"mandatory\":10}",
                 "Invalid configuration for attribute pa: the mandatory value must be true or false literals");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"mandatory\":\"true\"}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"mandatory\":\"true\"}",
                 "Invalid configuration for attribute pa: the mandatory value must be true or false literals");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"default\":10}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"default\":10}",
                 "Invalid configuration for attribute pa: the default value must be a string");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"regex\":10}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"regex\":10}",
                 "Invalid configuration for attribute pa: the regex value must be a string");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"minlength\":\"abc\"}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"minlength\":\"abc\"}",
                 "Invalid configuration for attribute pa: the minlength value must be an integer number");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"minlength\":10.0}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"minlength\":10.0}",
                 "Invalid configuration for attribute pa: the minlength value must be an integer number");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"maxlength\":\"abc\"}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"maxlength\":\"abc\"}",
                 "Invalid configuration for attribute pa: the maxlength value must be an integer number");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"maxlength\":10.0}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"maxlength\":10.0}",
                 "Invalid configuration for attribute pa: the maxlength value must be an integer number");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT,
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT,
                 "{\"default\":\"abc\", \"regex\":\"(\\\\w[-.\\\\w]*\\\\w@\\\\w[-.\\\\w]*\\\\w.\\\\w{2,3})\"}",
                 "Invalid configuration for attribute pa: the default value does not match regex configuration");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT,
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT,
                 "{\"default\":\"abc\", \"minlength\":5}",
                 "Invalid configuration for attribute pa: the default value is smaller than minlength");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT,
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT,
                 "{\"default\":\"abcabc\", \"maxlength\":5}",
                 "Invalid configuration for attribute pa: the default value is greater than maxlength");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT,
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT,
                 "{\"minlength\":50, \"maxlength\":10}",
                 "Invalid configuration for attribute pa: the minlength is greater than maxlength");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT,
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT,
                 "{\"default\":\"abc\", \"minlength\":9, \"maxlength\":50}",
                 "Invalid configuration for attribute pa: the default value is smaller than minlength");
-        expectExceptionOnUpdateInvalidAttribute("abc.a", createdAttribute, 1, "pa", TEXT, "{\"anyconf\":\"abc\"}",
+        expectExceptionOnUpdateInvalidPropertyType("abc.a", createdAttribute, 1, "pa", TEXT, "{\"anyconf\":\"abc\"}",
                 "Invalid configuration for attribute pa: the anyconf configuration attribute is unknown");
     }
 }
