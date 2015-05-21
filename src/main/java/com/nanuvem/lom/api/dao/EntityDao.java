@@ -7,13 +7,13 @@ import com.nanuvem.lom.api.Entity;
 
 public interface EntityDao {
 
-	Entity create(Entity instance);
+	Entity create(Entity entity);
 
-	Entity findInstanceById(Long id);
+	Entity findEntityById(Long id);
 	
-    List<Entity> findInstancesByEntityId(Long entityId);
+    List<Entity> findEntitiesByEntityTypeId(Long entityTypeId);
 
-	Entity update(Entity instance);
+	Entity update(Entity entity);
 
 	void delete(Long id);
 	
