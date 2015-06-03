@@ -1,6 +1,7 @@
 package com.nanuvem.lom.api;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nanuvem.lom.api.dao.DaoFactory;
 
@@ -45,6 +46,10 @@ public interface Facade {
 	Entity findEntityById(Long id);
 
 	List<Entity> findEntitiesByEntityTypeId(Long entityTypeId);
-	
+
+	List<Entity> findEntityByNameOfPropertiesTypeAndByValueOfProperties(
+			String fullnameEntityType,
+			Map<String, String> nomesDasPropertiesTypesEValoresDasProperties);
+
 	DaoFactory getDaoFactory();
 }
