@@ -1,43 +1,55 @@
 package com.nanuvem.lom.api;
 
 import java.util.List;
+import java.util.Map;
+
+import com.nanuvem.lom.api.dao.DaoFactory;
 
 public interface Facade {
 
-	// Entity
+	// EntityType
 
-	Entity create(Entity entity);
+	EntityType create(EntityType entityType);
 
-	Entity findEntityById(Long id);
+	EntityType findEntityTypeById(Long id);
 
-	Entity findEntityByFullName(String fullName);
+	EntityType findEntityTypeByFullName(String fullName);
 
-	List<Entity> listAllEntities();
+	List<EntityType> listAllEntitiesTypes();
 
-	List<Entity> listEntitiesByFullName(String fragment);
+	List<EntityType> listEntitiesTypesByFullName(String fragment);
 
-	Entity update(Entity entity);
+	EntityType update(EntityType entityType);
 
-	void deleteEntity(Long id);
+	void deleteEntityType(Long id);
 
-	// Attribute
+	// PropertyType
 
-	Attribute create(Attribute attribute);
+	PropertyType create(PropertyType propertyType);
 
-	Attribute findAttributeById(Long id);
+	PropertyType findPropertyTypeById(Long id);
 
-	Attribute findAttributeByNameAndEntityFullName(String name,
-			String fullEntityName);
+	PropertyType findPropertyTypeByNameAndFullnameEntityType(String name,
+			String fullnameEntityType);
 
-	Attribute update(Attribute attribute);
+	List<PropertyType> findPropertiesTypesByFullNameEntityType(
+			String fullnameEntityTypeParameter);
+
+	PropertyType update(PropertyType propertyType);
 
 	// Instance
 
-	Instance create(Instance instance);
+	Entity create(Entity entity);
 
-	Instance update(Instance instance);
+	Entity update(Entity entity);
 
-	Instance findInstanceById(Long id);
+	Entity findEntityById(Long id);
 
-	List<Instance> findInstancesByEntityId(Long entityId);
+	List<Entity> findEntitiesByEntityTypeId(Long entityTypeId);
+
+	List<Entity> findEntityByNameOfPropertiesTypeAndByValueOfProperties(
+			String fullnameEntityType,
+			Map<String, String> nomesDasPropertiesTypesEValoresDasProperties);
+
+	DaoFactory getDaoFactory();
 }

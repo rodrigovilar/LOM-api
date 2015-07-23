@@ -2,8 +2,9 @@ package com.nanuvem.lom.api;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class Attribute implements Serializable {
+public class PropertyType implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public final static String MAXVALUE_CONFIGURATION_NAME = "maxvalue";
 	public final static String MINVALUE_CONFIGURATION_NAME = "minvalue";
@@ -16,7 +17,7 @@ public class Attribute implements Serializable {
 	public final static String REGEX_CONFIGURATION_NAME = "regex";
 	public final static String DEFAULT_CONFIGURATION_NAME = "default";
 	public final static String MANDATORY_CONFIGURATION_NAME = "mandatory";
-	
+
 	private Long id;
 
 	private Integer version;
@@ -25,11 +26,11 @@ public class Attribute implements Serializable {
 
 	private String name;
 
-	private AttributeType type;
+	private Type type;
 
 	private String configuration;
 
-	private Entity entity;
+	private EntityType entityType;
 
 	@Override
 	public int hashCode() {
@@ -54,7 +55,7 @@ public class Attribute implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Attribute other = (Attribute) obj;
+		PropertyType other = (PropertyType) obj;
 		if (configuration == null) {
 			if (other.configuration != null)
 				return false;
@@ -117,11 +118,11 @@ public class Attribute implements Serializable {
 		this.name = name;
 	}
 
-	public AttributeType getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(AttributeType type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -133,19 +134,19 @@ public class Attribute implements Serializable {
 		this.configuration = configuration;
 	}
 
-	public Entity getEntity() {
-		return entity;
+	public EntityType getEntityType() {
+		return entityType;
 	}
 
-	public void setEntity(Entity entity) {
-		this.entity = entity;
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
 	}
 
 	@Override
 	public String toString() {
-		return "Attribute [sequence=" + sequence + ", name=" + name + ", type="
-				+ type + ", configuration=" + configuration + ", id=" + id
-				+ ", version=" + version + "]";
+		return "PropertyType [sequence=" + sequence + ", name=" + name
+				+ ", type=" + type + ", configuration=" + configuration
+				+ ", id=" + id + ", version=" + version + "]";
 	}
 
 }

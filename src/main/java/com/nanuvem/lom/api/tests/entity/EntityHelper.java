@@ -1,157 +1,203 @@
 package com.nanuvem.lom.api.tests.entity;
 
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.createEntityType;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.createOnePropertyType;
 import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import org.junit.Assert;
+import junit.framework.Assert;
 
-import com.nanuvem.lom.api.Entity;
+import org.codehaus.jackson.JsonNode;
+
+import com.nanuvem.lom.api.PropertyType;
+import com.nanuvem.lom.api.Type;
+import com.nanuvem.lom.api.Property;
+import com.nanuvem.lom.api.EntityType;
 import com.nanuvem.lom.api.Facade;
+import com.nanuvem.lom.api.Entity;
 import com.nanuvem.lom.api.MetadataException;
+import com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper;
+import com.nanuvem.lom.api.util.JsonNodeUtil;
 
 public class EntityHelper {
 
 	private static Facade facade;
 
-	public static Entity createEntity(String namespace, String name) {
-		Entity entity = new Entity();
-		entity.setName(name);
-		entity.setNamespace(namespace);
-		entity = facade.create(entity);
-		return entity;
-	}
-
-	public static void expectExceptionOnInvalidFindEntityByFullName(String fullName,
-			String expectedMessage) {
-		try {
-			facade.findEntityByFullName(fullName);
-			fail();
-		} catch (MetadataException me) {
-			Assert.assertEquals(expectedMessage, me.getMessage());
-		}
-	}
-
-	public static void expectExceptionOnInvalidEntityList(String fragment,
-			String expectedMessage, String... args) {
-		try {
-			facade.listEntitiesByFullName(fragment);
-			fail();
-		} catch (MetadataException e) {
-            String formatedMessage = String.format(expectedMessage, (Object[])  args);
-            Assert.assertEquals(formatedMessage, e.getMessage());
-		}
-	}
-
-	public static void expectExceptionOnInvalidEntityUpdate(Entity entity, String secondnamespace, String secondname,
-			String expectedMessage, String... args) {
-	
-		try {
-			entity.setNamespace(secondnamespace);
-			entity.setName(secondname);
-			facade.update(entity);
-			fail();
-		} catch (MetadataException e) {
-            String formatedMessage = String.format(expectedMessage, (Object[])  args);
-            Assert.assertEquals(formatedMessage, e.getMessage());
-		}
-	}
-
-	public static void expectExceptionOnCreateInvalidEntity(String namespace,
-			String name, String expectedMessage, String... args) {
-		try {
-			createAndVerifyOneEntity(namespace, name);
-			fail();
-		} catch (MetadataException e) {
-			String formatedMessage = String.format(expectedMessage, (Object[])  args);
-			Assert.assertEquals(formatedMessage, e.getMessage());
-		}
-	}
-
-	public static void createUpdateAndVerifyOneEntity(String firstNamespace,
-			String firstName, String secondNamespace,
-			String secondName) {
-	
-		Entity entity = new Entity();
-		entity.setNamespace(firstNamespace);
-		entity.setName(firstName);
-		entity = facade.create(entity);
-	
-		Assert.assertNotNull(entity.getId());
-		Assert.assertEquals((Integer) 0, entity.getVersion());
-	
-		Entity updateEntity = new Entity();
-		updateEntity.setNamespace("secondNamespace");
-		updateEntity.setName("secondName");
-		updateEntity.setId(entity.getId());
-		updateEntity.setVersion(entity.getVersion() + 1);
-	
-		Entity entity1 = facade.update(updateEntity);
-	
-		List<Entity> allEntities = facade.listAllEntities();
-		Entity entityFound = allEntities.get(0);
-	
-		Assert.assertEquals((Integer) 1, entity1.getVersion());
-		Assert.assertNotSame(entity, entityFound);
-		facade.deleteEntity(entity.getId());
-	}
-
-	public static void createAndVerifyTwoEntities(String entity1namespace,
-			String entity1name, String entity2namespace, String entity2name) {
-		Entity entity1 = new Entity();
-		entity1.setNamespace(entity1namespace);
-		entity1.setName(entity1name);
-		entity1 = facade.create(entity1);
-	
-		Entity entity2 = new Entity();
-		entity2.setNamespace(entity2namespace);
-		entity2.setName(entity2name);
-		entity2 = facade.create(entity2);
-	
-		Assert.assertNotNull(entity1.getId());
-		Assert.assertNotNull(entity2.getId());
-	
-		Assert.assertEquals((Integer) 0, entity1.getVersion());
-		Assert.assertEquals((Integer) 0, entity2.getVersion());
-	
-		List<Entity> entities = facade.listAllEntities();
-		Assert.assertEquals(2, entities.size());
-		Assert.assertEquals(entity1, entities.get(0));
-		Assert.assertEquals(entity2, entities.get(1));
-	
-		facade.deleteEntity(entity1.getId());
-		facade.deleteEntity(entity2.getId());
-	}
-
-	public static Entity createAndSaveOneEntity(String namespace, String name) {
-		Entity entity = new Entity();
-		entity.setNamespace(namespace);
-		entity.setName(name);
-		entity = facade.create(entity);
-	
-		Assert.assertNotNull(entity.getId());
-		Assert.assertEquals((Integer) 0, entity.getVersion());
-		return entity;
-	}
-
-	public static void createAndVerifyOneEntity(String namespace, String name) {
-		Entity entity = new Entity();
-		entity.setNamespace(namespace);
-		entity.setName(name);
-		entity = facade.create(entity);
-	
-		Assert.assertNotNull(entity.getId());
-		Assert.assertEquals((Integer) 0, entity.getVersion());
-	
-		List<Entity> entities = facade.listAllEntities();
-		Assert.assertEquals(1, entities.size());
-		Assert.assertEquals(entity, entities.get(0));
-	
-		facade.deleteEntity(entity.getId());
-	}
-
 	public static void setFacade(Facade facade) {
 		EntityHelper.facade = facade;
 	}
 
+	public static Entity createOneEntity(EntityType entityType,
+			String... values) {
+
+		Entity entity = new Entity();
+		entity.setEntityType(entityType);
+
+		for (int i = 0; i < values.length; i++) {
+			Property property = new Property();
+			property.setValue(values[i]);
+
+			if (entityType != null) {
+				property.setPropertyType(entityType.getPropertiesTypes().get(i));
+			}
+
+			property.setEntity(entity);
+			entity.getProperties().add(property);
+		}
+		return facade.create(entity);
+	}
+
+	public static void expectExceptionOnCreateInvalidEntity(
+			String entityTypeFullName, String exceptedMessage, String... values) {
+
+		try {
+			EntityType entityType = null;
+			if (entityTypeFullName != null) {
+				entityType = facade
+						.findEntityTypeByFullName(entityTypeFullName);
+			}
+
+			createOneEntity(entityType, values);
+			fail();
+		} catch (MetadataException metadataException) {
+			Assert.assertEquals(exceptedMessage, metadataException.getMessage());
+		}
+	}
+
+	public static void createAndVerifyOneEntity(String entityTypeFullName,
+			String... values) {
+
+		EntityType entityType = null;
+		if (entityTypeFullName != null) {
+			entityType = facade.findEntityTypeByFullName(entityTypeFullName);
+		}
+
+		int numberOfEntities = facade.findEntitiesByEntityTypeId(
+				entityType.getId()).size();
+
+		Entity newEntity = createOneEntity(entityType, values);
+
+		Assert.assertNotNull(newEntity.getId());
+		Assert.assertEquals(new Integer(0), newEntity.getVersion());
+
+		Entity createdEntity = facade.findEntityById(newEntity.getId());
+		Assert.assertEquals(newEntity, createdEntity);
+		Assert.assertEquals(entityTypeFullName, createdEntity.getEntityType()
+				.getFullName());
+
+		verifyAllProperties(createdEntity, values);
+
+		List<Entity> entities = facade.findEntitiesByEntityTypeId(entityType
+				.getId());
+
+		Assert.assertEquals(numberOfEntities + 1, entities.size());
+		Entity listedEntity = entities.get(numberOfEntities);
+		Assert.assertEquals(newEntity, listedEntity);
+		Assert.assertEquals(entityTypeFullName, listedEntity.getEntityType()
+				.getFullName());
+
+		verifyAllProperties(listedEntity, values);
+
+	}
+
+	private static void verifyAllProperties(Entity createdEntity,
+			String... values) {
+
+		for (int i = 0; i < values.length; i++) {
+			String value = values[i];
+			Property createdProperty = createdEntity.getProperties().get(i);
+
+			Assert.assertNotNull("Id was null", createdProperty.getId());
+
+			if (usesDefaultConfiguration(value, createdProperty)) {
+				validateThatDefaultConfigurationWasAppliedToValue(createdProperty);
+			} else {
+				Assert.assertEquals(value, createdProperty.getValue());
+			}
+		}
+	}
+
+	private static boolean usesDefaultConfiguration(String value,
+			Property createdProperty) {
+
+		return ((value == null) || value.isEmpty())
+				&& (createdProperty.getPropertyType().getConfiguration() != null)
+				&& (createdProperty.getPropertyType().getConfiguration()
+						.contains(PropertyType.DEFAULT_CONFIGURATION_NAME));
+	}
+
+	public static Property newProperty(String propertyTypeName,
+			String entityTypeFullName, String value, Entity entity) {
+
+		Property property = new Property();
+		property.setPropertyType(facade
+				.findPropertyTypeByNameAndFullnameEntityType(propertyTypeName,
+						entityTypeFullName));
+		property.setValue(value);
+		property.setEntity(entity);
+		return property;
+	}
+
+	private static void validateThatDefaultConfigurationWasAppliedToValue(
+			Property property) {
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = JsonNodeUtil.validate(property.getPropertyType()
+					.getConfiguration(), null);
+		} catch (Exception e) {
+			fail();
+			throw new RuntimeException(
+					"Json configuration is in invalid format");
+		}
+		String defaultField = jsonNode.get(
+				PropertyType.DEFAULT_CONFIGURATION_NAME).asText();
+		Assert.assertEquals(property.getValue(), defaultField);
+	}
+
+	static Property newProperty(String attributeName, String objValue) {
+		PropertyType attribute = new PropertyType();
+		attribute.setName(attributeName);
+		Property value = new Property();
+		value.setValue(objValue);
+		value.setPropertyType(attribute);
+		return value;
+	}
+
+	public static void invalidValueForEntity(String entityTypeName,
+			Integer sequence, String propertyTypeName, Type type,
+			String configuration, String value, String expectedMessage) {
+
+		PropertyTypeHelper.createOnePropertyType(entityTypeName, sequence,
+				propertyTypeName, type, configuration);
+
+		EntityHelper.expectExceptionOnCreateInvalidEntity(entityTypeName,
+				expectedMessage, value);
+
+	}
+
+	static void updateOneValueOfEntityAndVerifyOneException(
+			String namespaceEntityType, String nameEntityType,
+			String propertyTypeName, Type type, String configuration,
+			String valueOfCreate, String valueOfUpdate,
+			String expectedExceptionMessage) {
+
+		try {
+			createEntityType(namespaceEntityType, nameEntityType);
+			PropertyType propertyType = createOnePropertyType(namespaceEntityType
+					+ "." + nameEntityType, null, propertyTypeName, type,
+					configuration);
+
+			Entity entity = EntityHelper.createOneEntity(
+					propertyType.getEntityType(), valueOfCreate);
+
+			Property property = entity.getProperties().get(0);
+			property.setValue(valueOfUpdate);
+
+			facade.update(entity);
+
+		} catch (MetadataException e) {
+			Assert.assertEquals(expectedExceptionMessage, e.getMessage());
+		}
+	}
 }

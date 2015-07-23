@@ -1,6 +1,7 @@
 package com.nanuvem.lom.api.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nanuvem.lom.api.Entity;
 
@@ -8,15 +9,16 @@ public interface EntityDao {
 
 	Entity create(Entity entity);
 
-	List<Entity> listAll();
+	Entity findEntityById(Long id);
 
-	Entity findById(Long id);
-
-	List<Entity> listByFullName(String fragment);
-
-	Entity findByFullName(String fullName);
+	List<Entity> findEntitiesByEntityTypeId(Long entityTypeId);
 
 	Entity update(Entity entity);
 
 	void delete(Long id);
+
+	List<Entity> findEntityByNameOfPropertiesTypeAndByValueOfProperties(
+			String fullnameEntityType,
+			Map<String, String> nameByPropertiesTypesAndValuesOfProperties);
+
 }

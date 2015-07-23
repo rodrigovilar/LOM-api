@@ -1,150 +1,150 @@
-package com.nanuvem.lom.api.tests.instance;
+package com.nanuvem.lom.api.tests.entity;
 
 import org.junit.Test;
 
-import com.nanuvem.lom.api.AttributeType;
+import com.nanuvem.lom.api.Type;
 import com.nanuvem.lom.api.tests.LomTestCase;
 
-import static com.nanuvem.lom.api.tests.instance.InstanceHelper.*;
-import static com.nanuvem.lom.api.tests.attribute.AttributeHelper.*;
+import static com.nanuvem.lom.api.tests.propertytype.PropertyTypeHelper.*;
 import static com.nanuvem.lom.api.tests.entity.EntityHelper.*;
+import static com.nanuvem.lom.api.tests.entitytype.EntityTypeHelper.*;
 
 public abstract class LongTextValueTest extends LomTestCase {
 	@Test
 	public void instanceWithValidValuesForTheConfigurationOfAttributesLongText() {
-		createEntity("abc", "a");
-		createOneAttribute("abc.a", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "a");
+		createOnePropertyType("abc.a", null, "name", Type.LONGTEXT,
 				"{\"mandatory\": true}");
-		createAndVerifyOneInstance("abc.a", "Jose");
+		createAndVerifyOneEntity("abc.a", "Jose");
 
-		createEntity("abc", "b");
-		createOneAttribute("abc.b", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "b");
+		createOnePropertyType("abc.b", null, "name", Type.LONGTEXT,
 				"{\"default\" : \"default longtext\"}");
-		createAndVerifyOneInstance("abc.b", (String) null);
+		createAndVerifyOneEntity("abc.b", (String) null);
 
-		createEntity("abc", "c");
-		createOneAttribute("abc.c", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "c");
+		createOnePropertyType("abc.c", null, "name", Type.LONGTEXT,
 				"{\"default\" : \"default longtext\"}");
-		createAndVerifyOneInstance("abc.c", "Jose");
+		createAndVerifyOneEntity("abc.c", "Jose");
 
-		createEntity("abc", "d");
-		createOneAttribute("abc.d", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "d");
+		createOnePropertyType("abc.d", null, "name", Type.LONGTEXT,
 				"{\"minlength\" : 6}");
-		createAndVerifyOneInstance("abc.d", "Johson");
+		createAndVerifyOneEntity("abc.d", "Johson");
 
-		createEntity("abc", "e");
-		createOneAttribute("abc.e", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "e");
+		createOnePropertyType("abc.e", null, "name", Type.LONGTEXT,
 				"{\"mandatory\" : true, \"minlength\" : 6}");
-		createAndVerifyOneInstance("abc.e", "Johson");
+		createAndVerifyOneEntity("abc.e", "Johson");
 
-		createEntity("abc", "f");
-		createOneAttribute("abc.f", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "f");
+		createOnePropertyType("abc.f", null, "name", Type.LONGTEXT,
 				"{\"mandatory\" : true, \"default\":\"Johson\", \"minlength\" : 6}");
-		createAndVerifyOneInstance("abc.f", (String) null);
+		createAndVerifyOneEntity("abc.f", (String) null);
 
-		createEntity("abc", "g");
-		createOneAttribute("abc.g", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "g");
+		createOnePropertyType("abc.g", null, "name", Type.LONGTEXT,
 				"{\"mandatory\" : true, \"default\":\"Johson\", \"minlength\" : 6}");
-		createAndVerifyOneInstance("abc.g", "abccab");
+		createAndVerifyOneEntity("abc.g", "abccab");
 
-		createEntity("abc", "h");
-		createOneAttribute("abc.h", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "h");
+		createOnePropertyType("abc.h", null, "name", Type.LONGTEXT,
 				"{\"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.h", (String) null);
+		createAndVerifyOneEntity("abc.h", (String) null);
 
-		createEntity("abc", "i");
-		createOneAttribute("abc.i", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "i");
+		createOnePropertyType("abc.i", null, "name", Type.LONGTEXT,
 				"{\"mandatory\" : true, \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.i", "Johson");
+		createAndVerifyOneEntity("abc.i", "Johson");
 
-		createEntity("abc", "j");
-		createOneAttribute("abc.j", null, "name", AttributeType.LONGTEXT,
+		createEntityType("abc", "j");
+		createOnePropertyType("abc.j", null, "name", Type.LONGTEXT,
 				"{\"mandatory\" : true, \"default\" : \"Johson\", \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.j", (String) null);
+		createAndVerifyOneEntity("abc.j", (String) null);
 
-		createEntity("abc", "k");
-		createOneAttribute(
+		createEntityType("abc", "k");
+		createOnePropertyType(
 				"abc.k",
 				null,
 				"name",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\" : true, \"default\" : \"Johson\", \"minlength\" : 6, \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.k", (String) null);
+		createAndVerifyOneEntity("abc.k", (String) null);
 
-		createEntity("abc", "l");
-		createOneAttribute(
+		createEntityType("abc", "l");
+		createOnePropertyType(
 				"abc.l",
 				null,
 				"name",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\" : true, \"default\" : \"Johson\", \"minlength\" : 6, \"maxlength\" : 6}");
-		createAndVerifyOneInstance("abc.l", "abccba");
+		createAndVerifyOneEntity("abc.l", "abccba");
 	}
 
 	@Test
 	public void instanceWithInvalidValuesForConfigurationOfLongTextAttributes() {
-		createEntity("abc", "a");
-		createEntity("abc", "b");
-		createEntity("abc", "ba");
-		createEntity("abc", "c");
-		createEntity("abc", "ca");
-		createEntity("abc", "d");
-		createEntity("abc", "e");
+		createEntityType("abc", "a");
+		createEntityType("abc", "b");
+		createEntityType("abc", "ba");
+		createEntityType("abc", "c");
+		createEntityType("abc", "ca");
+		createEntityType("abc", "d");
+		createEntityType("abc", "e");
 
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.a",
 				null,
 				"nameA",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\" : true}",
 				null,
 				"Invalid value for the Instance. The value for the 'nameA' attribute is mandatory");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.b",
 				null,
 				"nameB",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"minlength\" : 5}",
 				"abcd",
 				"Invalid value for the Instance. The value for 'nameB' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.ba",
 				null,
 				"nameBA",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\" : true, \"minlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameBA' attribute is mandatory, "
 						+ "The value for 'nameBA' must have a minimum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.c",
 				null,
 				"nameC",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameC' must have a maximum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.ca",
 				null,
 				"nameCA",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\" : true, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameCA' attribute is mandatory");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.d",
 				null,
 				"nameD",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"minlength\" : 5, \"maxlength\" : 5}",
 				"abcdef",
 				"Invalid value for the Instance. The value for 'nameD' must have a maximum length of 5 characters");
-		invalidValueForInstance(
+		invalidValueForEntity(
 				"abc.e",
 				null,
 				"nameE",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\" : true, \"minlength\" : 5, \"maxlength\" : 5}",
 				"",
 				"Invalid value for the Instance. The value for the 'nameE' attribute is mandatory, "
@@ -154,45 +154,45 @@ public abstract class LongTextValueTest extends LomTestCase {
 	@Test
 	public void updateValueOfAttributeValueWithValidValuesAndDifferentAttributeConfigurations() {
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "a",
-				"descryption", AttributeType.LONGTEXT, null, null,
+		updateOneValueOfEntityAndVerifyOneException("abc", "a",
+				"descryption", Type.LONGTEXT, null, null,
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "b",
-				"descryption", AttributeType.LONGTEXT,
+		updateOneValueOfEntityAndVerifyOneException("abc", "b",
+				"descryption", Type.LONGTEXT,
 				"{\"default\": \"Nothing to say\"}", null,
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "c",
-				"descryption", AttributeType.LONGTEXT, "{\"minlength\": 10}",
+		updateOneValueOfEntityAndVerifyOneException("abc", "c",
+				"descryption", Type.LONGTEXT, "{\"minlength\": 10}",
 				null,
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "d",
-				"descryption", AttributeType.LONGTEXT, "{\"maxlength\": 100}",
+		updateOneValueOfEntityAndVerifyOneException("abc", "d",
+				"descryption", Type.LONGTEXT, "{\"maxlength\": 100}",
 				null,
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "e",
-				"descryption", AttributeType.LONGTEXT,
+		updateOneValueOfEntityAndVerifyOneException("abc", "e",
+				"descryption", Type.LONGTEXT,
 				"{\"maxlength\": 55, \"minlength\":55}", null,
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "f",
-				"descryption", AttributeType.LONGTEXT, "{\"mandatory\": true}",
+		updateOneValueOfEntityAndVerifyOneException("abc", "f",
+				"descryption", Type.LONGTEXT, "{\"mandatory\": true}",
 				"Nothing to say",
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException("abc", "g",
-				"descryption", AttributeType.LONGTEXT,
+		updateOneValueOfEntityAndVerifyOneException("abc", "g",
+				"descryption", Type.LONGTEXT,
 				"{\"mandatory\": false}", null,
 				"Here must contain a description, written by a long text", null);
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"h",
 				"descryption",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\": false, \"minlength\": 11, \"maxlength\": 300}",
 				"Nothing to say",
 				"Here must contain a description, written by a long text", null);
@@ -201,41 +201,41 @@ public abstract class LongTextValueTest extends LomTestCase {
 	@Test
 	public void expectAnExceptionWhenUpdatingAttributeValueWithInvalidValue() {
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"a",
 				"descryption",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"minlength\": 50}",
 				null,
 				"Some long text",
 				"Invalid value for the Instance. The value for 'descryption' must have a minimum length of 50 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"b",
 				"descryption",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"maxlength\": 10}",
 				null,
 				"Some long text",
 				"Invalid value for the Instance. The value for 'descryption' must have a maximum length of 10 characters");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"c",
 				"descryption",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"mandatory\": true}",
 				"Nothing to say",
 				null,
 				"Invalid value for the Instance. The value for the 'descryption' attribute is mandatory");
 
-		updateOneValueOfInstanceAndVerifyOneException(
+		updateOneValueOfEntityAndVerifyOneException(
 				"abc",
 				"d",
 				"descryption",
-				AttributeType.LONGTEXT,
+				Type.LONGTEXT,
 				"{\"minlength\":14, \"maxlength\": 14, \"mandatory\":true}",
 				"Nothing to say",
 				"Here must contain a description, written by a long text",
